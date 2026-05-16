@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background: #f6f1e8;
+  }
+}
+
+@layer components {
+  .section-label {
+    @apply mb-3 text-sm font-semibold uppercase tracking-[0.22em] text-clay;
+  }
+
+  .section-title {
+    @apply text-4xl font-semibold leading-tight text-ink md:text-5xl;
+  }
+}
