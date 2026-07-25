@@ -2,22 +2,223 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { motion } from "motion/react";
 import {
+  ArrowLeft,
   ArrowRight,
-  Facebook,
+  Calculator,
+  DraftingCompass,
+  Hammer,
   Home,
   Mail,
   MapPin,
   Menu,
   MessageCircle,
+  MessageSquareText,
+  Palette,
   Phone,
   Ruler,
   Sparkles,
 } from "lucide-react";
+import titleImage from "./img/brand/title.png";
 import "./styles.css";
+
+const projectImageModules = import.meta.glob(
+  "./img/projects/**/*.{jpg,JPG,jpeg,JPEG,png,PNG}",
+  {
+    eager: true,
+    import: "default",
+    query: "?url",
+  },
+);
+
+const slideImageModules = import.meta.glob(
+  "./img/slide/*.{jpg,JPG,jpeg,JPEG,png,PNG}",
+  {
+    eager: true,
+    import: "default",
+    query: "?url",
+  },
+);
+
+function getProjectImages(folder, altPrefix) {
+  return Object.entries(projectImageModules)
+    .filter(([path]) => path.includes(`/projects/${folder}/`))
+    .sort(([firstPath], [secondPath]) => firstPath.localeCompare(secondPath))
+    .map(([path, src], index) => ({
+      path,
+      src,
+      alt: `${altPrefix}案例照片 ${index + 1}`,
+    }));
+}
+
+const slideImages = Object.entries(slideImageModules)
+  .sort(([firstPath], [secondPath]) => firstPath.localeCompare(secondPath))
+  .map(([path, src], index) => ({
+    path,
+    src,
+    alt: `山嵐室內設計首頁作品輪播 ${index + 1}`,
+    label: `slide-${index + 1}`,
+  }));
+
+const zhengZiqiangImages = getProjectImages(
+  "residential/zheng-ziqiang",
+  "鄭宅/自強案 住家",
+);
+
+const luXiangyangImages = getProjectImages(
+  "residential/lu-xiangyang-258",
+  "陸宅/向陽258 住家",
+);
+const luXiangyangCover =
+  luXiangyangImages.find((image) =>
+    image.path.includes("8F04E481-A7D9-4AE1-941F-C4A31EA0E03F"),
+  )?.src ?? luXiangyangImages[0]?.src;
+
+const zhouImages = getProjectImages("residential/zhou", "周宅 住家");
+
+const linYanjiImages = getProjectImages(
+  "residential/lin",
+  "林宅/延吉街 住家",
+);
+
+const huangXiangxieImages = getProjectImages(
+  "residential/huang",
+  "黃宅/香榭13 住家",
+);
+
+const duQingtianImages = getProjectImages(
+  "residential/du",
+  "杜宅/晴天森林 住家",
+);
+
+const liuTaoyuanImages = getProjectImages(
+  "residential/liu-taoyuan",
+  "劉宅/桃園 住家",
+);
+
+const tsengFushunImages = getProjectImages(
+  "residential/tseng",
+  "曾宅/撫順街 住家",
+);
+
+const zhengYanjiuyuanImages = getProjectImages(
+  "residential/chung",
+  "鄭宅/研究院 住家",
+);
+
+const suZiliImages = getProjectImages(
+  "residential/su",
+  "蘇宅/自立路 住家",
+);
+
+const hongXinjuImages = getProjectImages(
+  "residential/hong",
+  "洪宅/心居 住家",
+);
+
+const zhaoJingmaoImages = getProjectImages(
+  "residential/zhao-jingmao-2nd",
+  "趙宅/經貿二路 住家",
+);
+
+const yangLinkouImages = getProjectImages(
+  "residential/yang-linkou",
+  "楊宅/林口 住家",
+);
+
+const linSongheImages = getProjectImages(
+  "residential/lin-songhe",
+  "林宅/松河街 住家",
+);
+
+const linJinxiImages = getProjectImages(
+  "residential/lin-jinxi",
+  "林宅/錦西街 住家",
+);
+
+const qiuXindianImages = getProjectImages(
+  "residential/qiu-xindian",
+  "邱宅/新店 住家",
+);
+
+const chenZhongheImages = getProjectImages(
+  "residential/chen-zhonghe",
+  "陳宅/中和 住家",
+);
+
+const chenChongyang136Images = getProjectImages(
+  "residential/chen-chongyang",
+  "陳宅/重陽136 住家",
+);
+
+const wangYanjiuyuanCabinetImages = getProjectImages(
+  "cabinet/wang",
+  "王宅/研究院 系統櫃",
+);
+
+const closetCabinetImages = getProjectImages(
+  "cabinet/closet",
+  "更衣室 系統櫃",
+);
+
+const chenChongyangImages = getProjectImages(
+  "render/chen-chongyang-57",
+  "陳宅/重陽57 空間設計模擬",
+);
+
+const liuGuomeiImages = getProjectImages(
+  "render/liu-guomei",
+  "劉宅/國美案 空間設計模擬",
+);
+
+const liangFuyuImages = getProjectImages(
+  "render/liang-fuyu",
+  "梁宅/富宇案 空間設計模擬",
+);
+
+const leeRishengImages = getProjectImages(
+  "render/lee3",
+  "李宅/日升月恆 空間設計模擬",
+);
+
+const leeZhongshanImages = getProjectImages(
+  "render/lee2",
+  "李宅/中山北 空間設計模擬",
+);
+
+const leeJiaziyuanImages = getProjectImages(
+  "render/lee-jiaziyuan",
+  "李宅/甲子園 空間設計模擬",
+);
+
+const zhengYanjiRenderImages = getProjectImages(
+  "render/chung",
+  "鄭宅/延吉街 空間設計模擬",
+);
+
+const zhengXiangduoImages = getProjectImages(
+  "render/chung2",
+  "鄭宅/香朵 空間設計模擬",
+);
+
+const jiangZhongheImages = getProjectImages(
+  "render/jiang",
+  "蔣宅/中和 空間設計模擬",
+);
+
+const linGardenVillaImages = getProjectImages(
+  "render/lin",
+  "林宅/花園別墅 空間設計模擬",
+);
+
+const yangSanchongImages = getProjectImages(
+  "render/yang",
+  "楊宅/三重 空間設計模擬",
+);
 
 const navItems = [
   ["作品", "/works"],
   ["服務", "/#服務"],
+  ["收費", "/#收費"],
   ["流程", "/#流程"],
   ["聯絡", "#聯絡"],
 ];
@@ -29,8 +230,8 @@ const businessInfo = {
   phone: "02-2651-6998",
   phoneHref: "tel:0226516998",
   email: "sanlan88@gmail.com",
-  facebook: "facebook.com/sanlan.design",
-  facebookHref: "https://facebook.com/sanlan.design",
+  facebook: "facebook.com/sanlan888",
+  facebookHref: "https://www.facebook.com/sanlan888/",
   line: "@sanlan.design",
   lineHref: "https://line.me/R/ti/p/@sanlan.design",
   mapHref:
@@ -83,32 +284,211 @@ const projects = [
     title: "住家",
     type: "住宅空間設計",
     style: "格局調整、收納規劃、材質搭配與生活動線整合。",
-    image:
-      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80",
+    image: zhengZiqiangImages[0]?.src ?? luXiangyangCover,
     cases: [
       {
-        title: "南港日常宅",
-        meta: "台北南港 / 28 坪 / 新成屋",
-        tags: ["木質調", "開放客餐廳", "收納"],
-        summary: "以清爽動線和溫潤材質，整理一家人的日常節奏。",
+        id: "zheng-residence",
+        title: "鄭宅/自強案",
+        meta: "新北中和區 / 住家",
+        tags: ["住家", "中和區", "完工案例"],
+        summary:
+          "以實際生活需求整理動線、收納與材質細節，呈現清楚耐看的居家尺度。",
+        images: zhengZiqiangImages,
+        cover: zhengZiqiangImages[0]?.src,
+        href: "/works/zheng-residence",
       },
       {
-        title: "城市小宅",
-        meta: "台北市 / 18 坪 / 小坪數",
-        tags: ["小宅", "多功能房", "隱藏收納"],
-        summary: "把有限坪數留給真正會被使用的生活場景。",
+        id: "lu-residence",
+        title: "陸宅/向陽258",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以簡潔配置與實用收納回應日常生活，讓空間維持清楚、舒適的使用節奏。",
+        images: luXiangyangImages,
+        cover: luXiangyangCover,
+        href: "/works/lu-residence",
       },
       {
-        title: "老屋留白",
-        meta: "新北市 / 34 坪 / 老屋翻新",
-        tags: ["老屋", "採光", "基礎工程"],
-        summary: "更新管線與格局，保留安靜耐看的居住表情。",
+        id: "zhou-residence",
+        title: "周宅/森活莊園",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以清楚動線與舒適材質整理居家尺度，讓日常使用更自然順手。",
+        images: zhouImages,
+        cover: zhouImages[0]?.src,
+        href: "/works/zhou-residence",
+      },
+      {
+        id: "lin-yanji",
+        title: "林宅/延吉街",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以柔和材質與清楚收納安排日常場景，維持舒適、耐看的居家表情。",
+        images: linYanjiImages,
+        cover: linYanjiImages[0]?.src,
+        href: "/works/lin-yanji",
+      },
+      {
+        id: "huang-xiangxie-13",
+        title: "黃宅/香榭13",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以清爽格局與細緻收納整理居家動線，讓生活場景更俐落舒適。",
+        images: huangXiangxieImages,
+        cover: huangXiangxieImages[0]?.src,
+        href: "/works/huang-xiangxie-13",
+      },
+      {
+        id: "du-qingtian-forest",
+        title: "杜宅/晴天森林",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以清楚收納、柔和材質與生活動線整理居家場景，讓日常使用更舒適順手。",
+        images: duQingtianImages,
+        cover: duQingtianImages[0]?.src,
+        href: "/works/du-qingtian-forest",
+      },
+      {
+        id: "liu-taoyuan",
+        title: "劉宅/桃園",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "依照一家人的生活節奏安排格局、收納與材質細節，呈現耐看的居家尺度。",
+        images: liuTaoyuanImages,
+        cover: liuTaoyuanImages[0]?.src,
+        href: "/works/liu-taoyuan",
+      },
+      {
+        id: "tseng-fushun",
+        title: "曾宅/撫順街",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以清楚動線、收納配置與材質細節整理生活場景，讓居家使用更自然耐看。",
+        images: tsengFushunImages,
+        cover: tsengFushunImages[0]?.src,
+        href: "/works/tseng-fushun",
+      },
+      {
+        id: "zheng-yanjiuyuan",
+        title: "鄭宅/研究院",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以清楚格局、收納配置與材質細節整理日常尺度，讓居家空間更舒適耐看。",
+        images: zhengYanjiuyuanImages,
+        cover: zhengYanjiuyuanImages[0]?.src,
+        href: "/works/zheng-yanjiuyuan",
+      },
+      {
+        id: "su-zili",
+        title: "蘇宅/自立路",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以生活動線、收納安排與材質細節整合居家需求，讓日常空間更清楚舒適。",
+        images: suZiliImages,
+        cover: suZiliImages[0]?.src,
+        href: "/works/su-zili",
+      },
+      {
+        id: "hong-xinju",
+        title: "洪宅/心居",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以清楚動線、收納安排與柔和材質整理居家場景，讓日常尺度更舒適耐看。",
+        images: hongXinjuImages,
+        cover: hongXinjuImages[0]?.src,
+        href: "/works/hong-xinju",
+      },
+      {
+        id: "zhao-jingmao-2nd",
+        title: "趙宅/經貿二路",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以生活動線、收納配置與材質細節整理居家尺度，讓空間更清楚舒適。",
+        images: zhaoJingmaoImages,
+        cover: zhaoJingmaoImages[0]?.src,
+        href: "/works/zhao-jingmao-2nd",
+      },
+      {
+        id: "yang-linkou",
+        title: "楊宅/林口",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "依照日常節奏安排格局、收納與材質搭配，呈現舒適耐看的居家表情。",
+        images: yangLinkouImages,
+        cover: yangLinkouImages[0]?.src,
+        href: "/works/yang-linkou",
+      },
+      {
+        id: "lin-songhe",
+        title: "林宅/松河街",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以清楚格局與實用收納整理生活場景，讓居家使用更自然順手。",
+        images: linSongheImages,
+        cover: linSongheImages[0]?.src,
+        href: "/works/lin-songhe",
+      },
+      {
+        id: "lin-jinxi",
+        title: "林宅/錦西街",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "整合收納、材質與光線細節，讓日常空間維持清爽且耐看的使用狀態。",
+        images: linJinxiImages,
+        cover: linJinxiImages[0]?.src,
+        href: "/works/lin-jinxi",
+      },
+      {
+        id: "qiu-xindian",
+        title: "邱宅/新店",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以居住需求為基礎整理格局、收納與材質方向，打造清楚舒適的生活空間。",
+        images: qiuXindianImages,
+        cover: qiuXindianImages[0]?.src,
+        href: "/works/qiu-xindian",
+      },
+      {
+        id: "chen-zhonghe",
+        title: "陳宅/中和",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以生活動線與材質細節整理空間表情，讓居家尺度更安定耐看。",
+        images: chenZhongheImages,
+        cover: chenZhongheImages[0]?.src,
+        href: "/works/chen-zhonghe",
+      },
+      {
+        id: "chen-chongyang-136",
+        title: "陳宅/重陽136",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以生活動線、收納配置與材質細節整理日常尺度，讓居家空間更清楚舒適。",
+        images: chenChongyang136Images,
+        cover: chenChongyang136Images[0]?.src,
+        href: "/works/chen-chongyang-136",
       },
     ],
   },
   {
     id: "office",
-    title: "辦公區域",
+    title: "辦公室",
     type: "辦公空間設計",
     style: "接待區、會議室、工作區與品牌形象空間配置。",
     image:
@@ -120,18 +500,6 @@ const projects = [
         tags: ["接待區", "會議室", "品牌牆"],
         summary: "以簡潔材質建立第一印象，讓訪客與團隊都能自然使用。",
       },
-      {
-        title: "彈性工作區",
-        meta: "台北南港 / 42 坪 / 辦公區域",
-        tags: ["開放工位", "收納牆", "彈性配置"],
-        summary: "整合固定座位、討論區與文件收納，讓工作節奏更清楚。",
-      },
-      {
-        title: "小型工作室",
-        meta: "台北松山 / 22 坪 / 工作室",
-        tags: ["展示", "辦公", "會客"],
-        summary: "在小尺度裡安排展示、討論與日常辦公的轉換。",
-      },
     ],
   },
   {
@@ -139,26 +507,160 @@ const projects = [
     title: "系統櫃",
     type: "系統櫃設計",
     style: "玄關、廚房、臥室、書房與展示收納的客製規劃。",
-    image:
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80",
+    image: wangYanjiuyuanCabinetImages[0]?.src,
     cases: [
       {
-        title: "玄關收納牆",
-        meta: "住家 / 玄關 / 系統櫃",
-        tags: ["鞋櫃", "穿鞋椅", "展示層板"],
-        summary: "把出門與回家的物件收好，維持入口清爽。",
+        id: "wang-yanjiuyuan-cabinet",
+        title: "王宅/研究院",
+        meta: "系統櫃 / 住家",
+        tags: ["系統櫃", "收納規劃", "住宅機能"],
+        summary:
+          "依照生活動線與收納需求配置櫃體尺度，讓日常物件有清楚、順手的位置。",
+        images: wangYanjiuyuanCabinetImages,
+        cover: wangYanjiuyuanCabinetImages[0]?.src,
+        href: "/works/wang-yanjiuyuan-cabinet",
       },
       {
-        title: "臥室衣物系統",
-        meta: "住家 / 臥室 / 衣櫃",
-        tags: ["衣櫃", "抽屜", "吊掛"],
-        summary: "依衣物比例安排吊掛、摺放與抽屜分類。",
+        id: "closet-cabinet",
+        title: "更衣室",
+        meta: "系統櫃 / 更衣室",
+        tags: ["系統櫃", "更衣室", "收納規劃"],
+        summary:
+          "依照衣物、配件與日常拿取習慣配置櫃體，讓更衣空間維持清楚、俐落的收納節奏。",
+        images: closetCabinetImages,
+        cover: closetCabinetImages[0]?.src,
+        href: "/works/closet-cabinet",
+      },
+    ],
+  },
+  {
+    id: "render",
+    title: "空間設計模擬",
+    type: "3D 設計渲染",
+    style:
+      "以擬真的空間畫面呈現格局、材質、光線與收納配置，協助設計討論更清楚。",
+    image: chenChongyangImages[0]?.src,
+    cases: [
+      {
+        id: "3d-rendering",
+        title: "陳宅/重陽57",
+        meta: "空間渲染 / 設計提案",
+        tags: ["3D 渲染", "設計提案", "材質模擬"],
+        summary:
+          "透過 3D 畫面整理空間比例、材質搭配與光線氛圍，讓提案與溝通更直覺。",
+        images: chenChongyangImages,
+        cover: chenChongyangImages[0]?.src,
+        href: "/works/3d-rendering",
       },
       {
-        title: "書房展示櫃",
-        meta: "住家 / 書房 / 展示收納",
-        tags: ["書櫃", "展示", "工作桌"],
-        summary: "讓閱讀、工作與收藏展示共存在同一面牆。",
+        id: "liu-guomei",
+        title: "劉宅/國美案",
+        meta: "空間渲染 / 設計提案",
+        tags: ["3D 渲染", "設計提案", "材質模擬"],
+        summary:
+          "以空間模擬呈現整體比例、材質方向與光線氛圍，讓設計討論更清楚。",
+        images: liuGuomeiImages,
+        cover: liuGuomeiImages[0]?.src,
+        href: "/works/liu-guomei",
+      },
+      {
+        id: "liang-residence",
+        title: "梁宅/富宇18",
+        meta: "空間渲染 / 設計提案",
+        tags: ["3D 渲染", "設計提案", "材質模擬"],
+        summary:
+          "以 3D 模擬整理空間比例、材質搭配與生活情境，協助確認設計方向。",
+        images: liangFuyuImages,
+        cover: liangFuyuImages[0]?.src,
+        href: "/works/liang-residence",
+      },
+      {
+        id: "lee-risheng-yueheng",
+        title: "李宅/日升月恆",
+        meta: "空間渲染 / 設計提案",
+        tags: ["3D 渲染", "設計提案", "材質模擬"],
+        summary:
+          "以空間模擬確認格局比例、材質方向與光線層次，讓提案討論更具體。",
+        images: leeRishengImages,
+        cover: leeRishengImages[0]?.src,
+        href: "/works/lee-risheng-yueheng",
+      },
+      {
+        id: "lee-zhongshan-north",
+        title: "李宅/中山北",
+        meta: "空間渲染 / 設計提案",
+        tags: ["3D 渲染", "設計提案", "材質模擬"],
+        summary:
+          "以空間模擬呈現格局安排、材質搭配與光線層次，讓設計方向更容易討論與確認。",
+        images: leeZhongshanImages,
+        cover: leeZhongshanImages[0]?.src,
+        href: "/works/lee-zhongshan-north",
+      },
+      {
+        id: "lee-jiaziyuan",
+        title: "李宅/甲子園",
+        meta: "空間渲染 / 設計提案",
+        tags: ["3D 渲染", "設計提案", "材質模擬"],
+        summary:
+          "以空間模擬整理格局比例、材質搭配與光線層次，讓提案方向更容易確認。",
+        images: leeJiaziyuanImages,
+        cover: leeJiaziyuanImages[0]?.src,
+        href: "/works/lee-jiaziyuan",
+      },
+      {
+        id: "zheng-yanji-render",
+        title: "鄭宅/延吉街",
+        meta: "空間渲染 / 設計提案",
+        tags: ["3D 渲染", "設計提案", "材質模擬"],
+        summary:
+          "以空間模擬整理格局比例、材質搭配與光線氛圍，協助確認設計方向。",
+        images: zhengYanjiRenderImages,
+        cover: zhengYanjiRenderImages[0]?.src,
+        href: "/works/zheng-yanji-render",
+      },
+      {
+        id: "zheng-xiangduo",
+        title: "鄭宅/香朵",
+        meta: "空間渲染 / 設計提案",
+        tags: ["3D 渲染", "設計提案", "材質模擬"],
+        summary:
+          "以空間模擬整理格局配置、材質語感與光線層次，協助確認整體設計方向。",
+        images: zhengXiangduoImages,
+        cover: zhengXiangduoImages[0]?.src,
+        href: "/works/zheng-xiangduo",
+      },
+      {
+        id: "jiang-zhonghe",
+        title: "蔣宅/中和",
+        meta: "空間渲染 / 設計提案",
+        tags: ["3D 渲染", "設計提案", "材質模擬"],
+        summary:
+          "以空間模擬整理格局、材質與光線配置，讓設計方向更容易確認。",
+        images: jiangZhongheImages,
+        cover: jiangZhongheImages[0]?.src,
+        href: "/works/jiang-zhonghe",
+      },
+      {
+        id: "lin-garden-villa",
+        title: "林宅/花園別墅",
+        meta: "空間渲染 / 設計提案",
+        tags: ["3D 渲染", "設計提案", "材質模擬"],
+        summary:
+          "以空間模擬呈現格局比例、材質搭配與光線氛圍，協助確認整體設計方向。",
+        images: linGardenVillaImages,
+        cover: linGardenVillaImages[0]?.src,
+        href: "/works/lin-garden-villa",
+      },
+      {
+        id: "yang-sanchong",
+        title: "楊宅/三重",
+        meta: "空間渲染 / 設計提案",
+        tags: ["3D 渲染", "設計提案", "材質模擬"],
+        summary:
+          "以空間模擬整理格局比例、材質搭配與光線氛圍，讓設計方向更容易確認。",
+        images: yangSanchongImages,
+        cover: yangSanchongImages[0]?.src,
+        href: "/works/yang-sanchong",
       },
     ],
   },
@@ -166,48 +668,161 @@ const projects = [
 
 const services = [
   ["住宅設計", "從格局、收納到材質細節，規劃貼近日常節奏的家。"],
-  ["商業空間", "把品牌氣質轉化為動線、燈光與顧客體驗。"],
+  ["辦公室設計", "把品牌氣質轉化為接待、會議與日常工作體驗。"],
   ["老屋翻新", "整合基礎工程、機能更新與風格再塑。"],
   ["軟裝配置", "以家具、燈飾、窗簾與飾品完成空間表情。"],
 ];
 
-const process = [
-  "初步諮詢",
-  "需求訪談",
-  "平面配置",
-  "風格提案",
-  "預算報價",
-  "施工交付",
+const pricingPlans = [
+  {
+    title: "初步諮詢",
+    price: "免費",
+    note: "適合第一次了解服務內容與合作方式。",
+    items: ["需求初步討論", "流程與收費說明", "預算方向建議"],
+  },
+  {
+    title: "全屋裝修設計",
+    price: "依坪數與需求報價",
+    note: "適合住家、辦公室或完整空間規劃。",
+    items: ["平面配置與動線規劃", "風格與材質提案", "施工圖與工程預算整合"],
+  },
+  {
+    title: "系統櫃設計",
+    price: "依尺寸與材質報價",
+    note: "適合玄關、廚房、臥室、書房等局部收納。",
+    items: ["現場丈量", "櫃體配置設計", "板材、五金與施工估價"],
+  },
 ];
 
-const heroImages = [
+const fullHouseProcess = [
   {
-    src: projects[0].image,
-    alt: "山嵐室內設計住家空間",
-    label: "住家",
-    className: "mt-10 aspect-[3/4]",
+    title: "業務洽談",
+    icon: MessageCircle,
+    points: [
+      "了解業主之各項需求。",
+      "住宅類：家庭人口、起居習慣、特殊偏好、工程預算、設備及傢俱使用狀況、進度安排等。",
+      "辦公室：公司成員、組織概況、企業形象、部門流程、事務機器使用狀況、未來 3 至 5 年成長幅度預估、工程預算、進度安排等。",
+    ],
   },
   {
-    src: projects[1].image,
-    alt: "山嵐室內設計辦公區域",
-    label: "辦公區域",
-    className: "aspect-[3/5]",
+    title: "現場勘量",
+    icon: Ruler,
+    points: [
+      "對工地現場之周圍環境進行瞭解及做詳細之勘量，並拍照存檔作為設計之參考。",
+    ],
   },
   {
-    src: projects[2].image,
-    alt: "山嵐室內設計系統櫃",
-    label: "系統櫃",
-    className: "aspect-[4/3]",
+    title: "平面草圖定案",
+    icon: DraftingCompass,
+    points: ["對初步之規劃、動線等，先取得必要之認同，並確認設計輪廓。"],
+  },
+  {
+    title: "草案簡報",
+    icon: Palette,
+    points: ["依初步規劃與動線提出草案簡報，先取得必要之認同。"],
+  },
+  {
+    title: "簽訂設計合約",
+    icon: MessageSquareText,
+    points: [
+      "如業主對前項提供之草案尚感滿意，並認為有進一步磋商研討之必要，則雙方簽訂設計合約。",
+      "簽約後提供更詳盡的服務，並針對個案進行必要之修正及各種細部設計。",
+    ],
+  },
+  {
+    title: "設計定案",
+    icon: DraftingCompass,
+    points: ["根據設計草案，做必要之修正。"],
+  },
+  {
+    title: "細部設計",
+    icon: Palette,
+    points: [
+      "根據定案之設計，完成各項必要之施工詳圖及說明。",
+      "編列工程估價及進度表。",
+    ],
+  },
+  {
+    title: "簽訂工程合約",
+    icon: Calculator,
+    points: [
+      "工程延攬之說明：以合理價格取得工程承攬之權利，便於掌握工程品質，並對設計理念做較細節的詮釋。",
+    ],
+  },
+  {
+    title: "進行施工、完工驗收及交屋結案",
+    icon: Hammer,
+    points: ["進行施工", "完工驗收及交屋", "結案"],
   },
 ];
+
+const cabinetProcess = [
+  {
+    title: "丈量",
+    icon: Ruler,
+    points: ["現場尺寸丈量", "確認空間條件與使用需求"],
+  },
+  {
+    title: "估價",
+    icon: Calculator,
+    points: ["依尺寸、材質與五金配置估價", "確認預算與施作範圍"],
+  },
+  {
+    title: "設計",
+    icon: DraftingCompass,
+    points: ["系統櫃配置設計", "材質、色系與細節確認"],
+  },
+  {
+    title: "施工",
+    icon: Hammer,
+    points: ["排定施工時間", "現場安裝、清潔與驗收"],
+  },
+];
+
+const heroImages =
+  slideImages.length > 0
+    ? slideImages
+    : [
+        {
+          src: zhengZiqiangImages[0]?.src ?? projects[0].image,
+          alt: "山嵐室內設計住家作品",
+          label: "住家",
+        },
+        {
+          src: wangYanjiuyuanCabinetImages[0]?.src ?? projects[2].image,
+          alt: "山嵐室內設計系統櫃作品",
+          label: "系統櫃",
+        },
+        {
+          src: chenChongyangImages[0]?.src ?? projects[3].image,
+          alt: "山嵐室內設計空間設計模擬作品",
+          label: "空間設計模擬",
+        },
+      ];
+
+const portfolioCases = projects.flatMap((project) =>
+  project.cases.map((work) => ({
+    ...work,
+    projectId: project.id,
+    projectTitle: project.title,
+    projectType: project.type,
+  })),
+);
 
 function App() {
-  const path = window.location.pathname === "/works" ? "/works" : "/";
+  const path = window.location.pathname;
+  const selectedWork = portfolioCases.find((work) => work.href === path);
 
   return (
     <main className="min-h-screen bg-rice pb-28 text-ink md:pb-0">
       <Header />
-      {path === "/works" ? <WorksPage /> : <HomePage />}
+      {selectedWork ? (
+        <CaseGalleryPage work={selectedWork} />
+      ) : path === "/works" ? (
+        <WorksPage />
+      ) : (
+        <HomePage />
+      )}
       <ContactSection />
       <Footer />
 
@@ -271,22 +886,43 @@ function Header() {
   );
 }
 
-function HeroImage({ image }) {
+function HeroSlideshow() {
+  const [activeSlide, setActiveSlide] = React.useState(0);
+
+  React.useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveSlide((currentSlide) => (currentSlide + 1) % heroImages.length);
+    }, 4000);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
   return (
     <motion.a
-      href={`/works#case-${image.label === "住家" ? "home" : image.label === "辦公區域" ? "office" : "cabinet"}`}
-      className={`group relative overflow-hidden rounded-lg bg-white shadow-soft ${image.className}`}
+      href="/works"
+      className="group relative block min-h-[400px] overflow-hidden rounded-lg bg-white shadow-soft md:min-h-[520px]"
       variants={{
         hidden: { opacity: 0, y: 22, scale: 0.98 },
         show: { opacity: 1, y: 0, scale: 1 },
       }}
       transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
     >
-      <img
-        src={image.src}
-        alt={image.alt}
-        className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-      />
+      {heroImages.map((image, index) => (
+        <img
+          key={image.label}
+          src={image.src}
+          alt={image.alt}
+          className={`hero-slide h-full w-full object-cover transition duration-700 group-hover:scale-105 ${
+            activeSlide === index ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      ))}
+      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/70 via-ink/20 to-transparent p-6 text-white">
+        <p className="text-sm font-semibold tracking-[0.18em]">
+          SANLAN WORKS
+        </p>
+        <p className="mt-2 text-2xl font-semibold">作品精選</p>
+      </div>
     </motion.a>
   );
 }
@@ -305,15 +941,15 @@ function HomePage() {
             <p className="mb-5 text-sm font-semibold tracking-[0.28em] text-clay">
               SANLAN INTERIOR DESIGN
             </p>
-            <h1 className="text-5xl font-semibold leading-tight text-ink md:text-7xl">
-              山嵐室內設計
+            <h1 className="max-w-4xl">
+              <img
+                src={titleImage}
+                alt="山嵐室內設計"
+                className="h-auto w-full max-w-[720px]"
+              />
             </h1>
-            <p className="mt-4 text-lg font-medium text-cedar">
-              {businessInfo.englishName}
-            </p>
             <p className="mt-8 max-w-2xl text-lg leading-8 text-stonework md:text-xl">
-              位於台北南港，Sanlan
-              以安靜、清楚、耐看的設計語彙，整理住家、辦公區域與系統櫃的日常尺度。
+              在南港落地生根二十餘年的山嵐，以專業務實、誠信的經營理念，為客戶創造嶄新舒適且富有品味的生活空間。
             </p>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">
               <a
@@ -332,7 +968,7 @@ function HomePage() {
             </div>
           </motion.div>
           <motion.div
-            className="grid min-h-[400px] grid-cols-2 gap-4"
+            className="min-h-[400px]"
             initial="hidden"
             animate="show"
             variants={{
@@ -345,16 +981,7 @@ function HomePage() {
               },
             }}
           >
-            <div className="grid gap-4">
-              {heroImages.slice(0, 2).map((image) => (
-                <HeroImage key={image.label} image={image} />
-              ))}
-            </div>
-            <div className="grid gap-4">
-              {heroImages.slice(0, 2).map((image) => (
-                <HeroImage key={image.label} image={image} />
-              ))}
-            </div>
+            <HeroSlideshow />
           </motion.div>
         </div>
       </section>
@@ -366,10 +993,10 @@ function HomePage() {
             <h2 className="section-title">精選空間作品</h2>
           </div>
           <p className="max-w-xl leading-7 text-stonework">
-            作品依住家、辦公區域與系統櫃三大類呈現，後續可替換為實際完工照、坪數、地點與設計說明。
+            作品依住家、辦公室、系統櫃與空間設計模擬分類呈現，整理實際案例照片、空間類型與設計說明。
           </p>
         </div>
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {projects.map((project) => (
             <article
               key={project.title}
@@ -426,14 +1053,112 @@ function HomePage() {
         <div className="mx-auto max-w-7xl">
           <p className="section-label text-mist">Process</p>
           <h2 className="section-title text-white">清楚透明的設計流程</h2>
-          <div className="mt-12 grid gap-4 md:grid-cols-3 lg:grid-cols-6">
-            {process.map((item, index) => (
-              <div key={item} className="rounded-lg border border-white/18 p-5">
-                <div className="text-sm text-white/55">0{index + 1}</div>
-                <h3 className="mt-8 text-xl font-semibold">{item}</h3>
+          <div className="mt-12">
+            <div className="mb-8 max-w-3xl">
+              <h3 className="text-3xl font-semibold">全屋裝修</h3>
+              <p className="mt-3 leading-7 text-white/65">
+                從業務洽談、現場勘量、設計定案到施工交屋，完整掌握設計與工程執行。
+              </p>
+            </div>
+            <div className="grid gap-x-14 gap-y-0 lg:grid-cols-2">
+              {fullHouseProcess.map((item, index) => (
+                <div
+                  key={item.title}
+                  className="grid gap-5 border-t border-white/15 py-8 sm:grid-cols-[auto_1fr]"
+                >
+                  <span className="grid size-16 shrink-0 place-items-center rounded-full border border-white/20 text-3xl font-semibold text-white/60">
+                    {index + 1}
+                  </span>
+                  <div>
+                    <h4 className="text-2xl font-semibold">{item.title}</h4>
+                    <ul className="mt-4 space-y-2 text-sm leading-6 text-white/70">
+                      {item.points.map((point) => (
+                        <li key={point} className="flex gap-3">
+                          <span className="mt-2 size-1.5 shrink-0 rounded-full bg-mist" />
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-16 border-t border-white/15 pt-12">
+              <div className="mb-8 max-w-3xl">
+                <h3 className="text-3xl font-semibold">系統櫃</h3>
+                <p className="mt-3 leading-7 text-white/65">
+                  針對單區或局部收納需求，以更精簡的流程完成丈量、估價、設計與施工。
+                </p>
               </div>
-            ))}
+              <div className="grid gap-4 md:grid-cols-4">
+                {cabinetProcess.map((item, index) => {
+                  const Icon = item.icon;
+
+                  return (
+                    <div
+                      key={item.title}
+                      className="rounded-lg border border-white/15 p-5"
+                    >
+                      <div className="flex items-center justify-between gap-4">
+                        <span className="grid size-11 place-items-center rounded-full bg-white/12 text-mist">
+                          <Icon size={20} />
+                        </span>
+                        <span className="text-sm font-semibold text-white/45">
+                          0{index + 1}
+                        </span>
+                      </div>
+                      <h4 className="mt-6 text-2xl font-semibold">
+                        {item.title}
+                      </h4>
+                      <ul className="mt-4 space-y-2 text-sm leading-6 text-white/70">
+                        {item.points.map((point) => (
+                          <li key={point} className="flex gap-3">
+                            <span className="mt-2 size-1.5 shrink-0 rounded-full bg-mist" />
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
+        </div>
+      </section>
+
+      <section id="收費" className="mx-auto max-w-7xl px-5 py-20 md:px-8">
+        <div className="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+          <div>
+            <p className="section-label">Pricing</p>
+            <h2 className="section-title">收費標準</h2>
+          </div>
+          <p className="max-w-xl leading-7 text-stonework">
+            實際費用會依坪數、屋況、施工範圍、材質與五金選配調整，正式報價以前會先確認需求與預算方向。
+          </p>
+        </div>
+        <div className="grid gap-5 md:grid-cols-3">
+          {pricingPlans.map((plan) => (
+            <article
+              key={plan.title}
+              className="rounded-lg border border-ink/10 bg-white p-6 shadow-soft"
+            >
+              <p className="text-sm font-semibold text-clay">{plan.title}</p>
+              <h3 className="mt-4 text-2xl font-semibold text-ink">
+                {plan.price}
+              </h3>
+              <p className="mt-3 leading-7 text-stonework">{plan.note}</p>
+              <ul className="mt-6 space-y-3 text-sm leading-6 text-stonework">
+                {plan.items.map((item) => (
+                  <li key={item} className="flex gap-3">
+                    <span className="mt-2 size-1.5 shrink-0 rounded-full bg-cedar" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
         </div>
       </section>
     </>
@@ -450,7 +1175,7 @@ function WorksPage() {
             作品案例
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-stonework">
-            依住家、辦公區域與系統櫃分頁整理。每個分類底下保留多個案例，方便後續擴充實際照片、坪數與設計說明。
+            依住家、辦公室、系統櫃與空間設計模擬分頁整理。每個分類底下保留多個案例，方便後續擴充實際照片、坪數與設計說明。
           </p>
           <div className="mt-10 flex flex-wrap gap-3">
             {projects.map((project) => (
@@ -474,55 +1199,146 @@ function WorksPage() {
               id={`case-${project.id}`}
               className="scroll-mt-24"
             >
-              <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
-                <div>
-                  <div className="overflow-hidden rounded-lg bg-white shadow-soft">
-                    <div className="aspect-[4/5] overflow-hidden">
-                      <img
-                        src={project.image}
-                        alt={`山嵐室內設計 ${project.title} 作品分類`}
-                        className="h-full w-full object-cover"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <p className="text-sm text-clay">{project.type}</p>
-                      <h2 className="mt-2 text-3xl font-semibold">
-                        {project.title}
-                      </h2>
-                      <p className="mt-3 leading-7 text-stonework">
-                        {project.style}
-                      </p>
-                    </div>
-                  </div>
+              <div>
+                <div className="mb-8 max-w-3xl">
+                  <p className="text-sm text-clay">{project.type}</p>
+                  <h2 className="mt-2 text-4xl font-semibold leading-tight">
+                    {project.title}
+                  </h2>
+                  <p className="mt-3 leading-7 text-stonework">
+                    {project.style}
+                  </p>
                 </div>
-                <div className="grid gap-4 md:grid-cols-2">
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                   {project.cases.map((work) => (
                     <article
                       key={work.title}
-                      className="rounded-lg border border-ink/10 bg-white p-5"
+                      className="overflow-hidden rounded-lg border border-ink/10 bg-white"
                     >
-                      <p className="text-sm text-stonework">{work.meta}</p>
-                      <h3 className="mt-3 text-xl font-semibold">
-                        {work.title}
-                      </h3>
-                      <p className="mt-3 leading-7 text-stonework">
-                        {work.summary}
-                      </p>
-                      <div className="mt-5 flex flex-wrap gap-2">
-                        {work.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="rounded-full bg-mist px-3 py-1 text-xs font-medium text-cedar"
+                      {work.cover && (
+                        <a
+                          href={work.href}
+                          className="block aspect-[4/3] overflow-hidden bg-mist"
+                        >
+                          <img
+                            src={work.cover}
+                            alt={`山嵐室內設計 ${work.title} 案例封面`}
+                            className="h-full w-full object-cover transition duration-700 hover:scale-105"
+                          />
+                        </a>
+                      )}
+                      <div className="p-5">
+                        <p className="text-sm text-stonework">{work.meta}</p>
+                        <h3 className="mt-3 text-xl font-semibold">
+                          {work.title}
+                        </h3>
+                        <p className="mt-3 leading-7 text-stonework">
+                          {work.summary}
+                        </p>
+                        <div className="mt-5 flex flex-wrap gap-2">
+                          {work.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="rounded-full bg-mist px-3 py-1 text-xs font-medium text-cedar"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                        {work.href && (
+                          <a
+                            href={work.href}
+                            className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-cedar"
                           >
-                            {tag}
-                          </span>
-                        ))}
+                            查看相簿
+                            <ArrowRight size={15} />
+                          </a>
+                        )}
                       </div>
                     </article>
                   ))}
                 </div>
               </div>
             </section>
+          ))}
+        </div>
+      </section>
+    </>
+  );
+}
+
+function CaseGalleryPage({ work }) {
+  const galleryImages = work.images ?? [];
+
+  return (
+    <>
+      <section className="px-5 pt-32 md:px-8">
+        <div className="mx-auto grid max-w-7xl gap-10 border-b border-ink/10 pb-14 lg:grid-cols-[0.76fr_1.24fr] lg:items-end">
+          <div>
+            <a
+              href="/works#case-home"
+              className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-cedar"
+            >
+              <ArrowLeft size={15} />
+              返回作品案例
+            </a>
+            <p className="section-label">{work.projectTitle}</p>
+            <h1 className="max-w-3xl text-4xl font-semibold leading-tight md:text-5xl">
+              {work.title}
+            </h1>
+            <p className="mt-5 text-lg leading-8 text-stonework">{work.meta}</p>
+            <p className="mt-5 max-w-2xl leading-8 text-stonework">
+              {work.summary}
+            </p>
+            <div className="mt-7 flex flex-wrap gap-2">
+              {work.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full bg-white px-3 py-1 text-xs font-medium text-cedar"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+          {work.cover && (
+            <div className="overflow-hidden rounded-lg bg-white shadow-soft">
+              <img
+                src={work.cover}
+                alt={`山嵐室內設計 ${work.title} 案例首圖`}
+                className="h-full max-h-[560px] w-full object-cover"
+              />
+            </div>
+          )}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-5 py-16 md:px-8">
+        <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+          <div>
+            <p className="section-label">Gallery</p>
+            <h2 className="section-title">空間照片</h2>
+          </div>
+          <p className="text-sm leading-6 text-stonework">
+            共 {galleryImages.length} 張照片
+          </p>
+        </div>
+        <div className="columns-1 gap-5 sm:columns-2 lg:columns-3">
+          {galleryImages.map((image, index) => (
+            <a
+              key={image.src}
+              href={image.src}
+              target="_blank"
+              rel="noreferrer"
+              className="mb-5 block break-inside-avoid overflow-hidden rounded-lg bg-white shadow-soft"
+            >
+              <img
+                src={image.src}
+                alt={image.alt}
+                loading={index > 2 ? "lazy" : undefined}
+                className="h-auto w-full transition duration-700 hover:scale-[1.025]"
+              />
+            </a>
           ))}
         </div>
       </section>

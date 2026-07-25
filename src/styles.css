@@ -23,4 +23,9 @@
   .section-title {
     @apply text-4xl font-semibold leading-tight text-ink md:text-5xl;
   }
+
+  .hero-slide {
+    inset: 0;
+    position: absolute;
+  }
 }
