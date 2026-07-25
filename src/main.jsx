@@ -6,6 +6,7 @@ import {
   ArrowRight,
   Calculator,
   DraftingCompass,
+  Facebook,
   Hammer,
   Home,
   Mail,
@@ -75,10 +76,7 @@ const luXiangyangCover =
 
 const zhouImages = getProjectImages("residential/zhou", "周宅 住家");
 
-const linYanjiImages = getProjectImages(
-  "residential/lin",
-  "林宅/延吉街 住家",
-);
+const linYanjiImages = getProjectImages("residential/lin", "林宅/延吉街 住家");
 
 const huangXiangxieImages = getProjectImages(
   "residential/huang",
@@ -105,15 +103,9 @@ const zhengYanjiuyuanImages = getProjectImages(
   "鄭宅/研究院 住家",
 );
 
-const suZiliImages = getProjectImages(
-  "residential/su",
-  "蘇宅/自立路 住家",
-);
+const suZiliImages = getProjectImages("residential/su", "蘇宅/自立路 住家");
 
-const hongXinjuImages = getProjectImages(
-  "residential/hong",
-  "洪宅/心居 住家",
-);
+const hongXinjuImages = getProjectImages("residential/hong", "洪宅/心居 住家");
 
 const zhaoJingmaoImages = getProjectImages(
   "residential/zhao-jingmao-2nd",
@@ -155,10 +147,7 @@ const wangYanjiuyuanCabinetImages = getProjectImages(
   "王宅/研究院 系統櫃",
 );
 
-const closetCabinetImages = getProjectImages(
-  "cabinet/closet",
-  "更衣室 系統櫃",
-);
+const closetCabinetImages = getProjectImages("cabinet/closet", "更衣室 系統櫃");
 
 const chenChongyangImages = getProjectImages(
   "render/chen-chongyang-57",
@@ -313,8 +302,7 @@ const projects = [
         title: "周宅/森活莊園",
         meta: "住家",
         tags: ["住家", "完工案例"],
-        summary:
-          "以清楚動線與舒適材質整理居家尺度，讓日常使用更自然順手。",
+        summary: "以清楚動線與舒適材質整理居家尺度，讓日常使用更自然順手。",
         images: zhouImages,
         cover: zhouImages[0]?.src,
         href: "/works/zhou-residence",
@@ -324,8 +312,7 @@ const projects = [
         title: "林宅/延吉街",
         meta: "住家",
         tags: ["住家", "完工案例"],
-        summary:
-          "以柔和材質與清楚收納安排日常場景，維持舒適、耐看的居家表情。",
+        summary: "以柔和材質與清楚收納安排日常場景，維持舒適、耐看的居家表情。",
         images: linYanjiImages,
         cover: linYanjiImages[0]?.src,
         href: "/works/lin-yanji",
@@ -335,8 +322,7 @@ const projects = [
         title: "黃宅/香榭13",
         meta: "住家",
         tags: ["住家", "完工案例"],
-        summary:
-          "以清爽格局與細緻收納整理居家動線，讓生活場景更俐落舒適。",
+        summary: "以清爽格局與細緻收納整理居家動線，讓生活場景更俐落舒適。",
         images: huangXiangxieImages,
         cover: huangXiangxieImages[0]?.src,
         href: "/works/huang-xiangxie-13",
@@ -434,8 +420,7 @@ const projects = [
         title: "林宅/松河街",
         meta: "住家",
         tags: ["住家", "完工案例"],
-        summary:
-          "以清楚格局與實用收納整理生活場景，讓居家使用更自然順手。",
+        summary: "以清楚格局與實用收納整理生活場景，讓居家使用更自然順手。",
         images: linSongheImages,
         cover: linSongheImages[0]?.src,
         href: "/works/lin-songhe",
@@ -467,8 +452,7 @@ const projects = [
         title: "陳宅/中和",
         meta: "住家",
         tags: ["住家", "完工案例"],
-        summary:
-          "以生活動線與材質細節整理空間表情，讓居家尺度更安定耐看。",
+        summary: "以生活動線與材質細節整理空間表情，讓居家尺度更安定耐看。",
         images: chenZhongheImages,
         cover: chenZhongheImages[0]?.src,
         href: "/works/chen-zhonghe",
@@ -634,8 +618,7 @@ const projects = [
         title: "蔣宅/中和",
         meta: "空間渲染 / 設計提案",
         tags: ["3D 渲染", "設計提案", "材質模擬"],
-        summary:
-          "以空間模擬整理格局、材質與光線配置，讓設計方向更容易確認。",
+        summary: "以空間模擬整理格局、材質與光線配置，讓設計方向更容易確認。",
         images: jiangZhongheImages,
         cover: jiangZhongheImages[0]?.src,
         href: "/works/jiang-zhonghe",
@@ -918,9 +901,7 @@ function HeroSlideshow() {
         />
       ))}
       <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/70 via-ink/20 to-transparent p-6 text-white">
-        <p className="text-sm font-semibold tracking-[0.18em]">
-          SANLAN WORKS
-        </p>
+        <p className="text-sm font-semibold tracking-[0.18em]">SANLAN WORKS</p>
         <p className="mt-2 text-2xl font-semibold">作品精選</p>
       </div>
     </motion.a>
