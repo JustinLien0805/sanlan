@@ -227,6 +227,17 @@ const businessInfo = {
     "https://www.google.com/maps/search/?api=1&query=%E5%8F%B0%E5%8C%97%E5%B8%82%E5%8D%97%E6%B8%AF%E5%8D%80%E9%87%8D%E9%99%BD%E8%B7%AF45%E8%99%9F1%E6%A8%93",
 };
 
+const serviceAreas = ["南港", "台北", "松山", "內湖"];
+
+const localSeoKeywords = [
+  "南港室內設計",
+  "台北室內設計",
+  "松山室內設計",
+  "內湖室內設計",
+  "台北住家設計",
+  "南港系統櫃",
+];
+
 const contactActions = [
   {
     label: "Facebook",
@@ -788,6 +799,84 @@ const criticalImageSources = [
   ...projects.map((project) => project.image).filter(Boolean),
 ];
 
+function getProjectImageAlt(project) {
+  return `${businessInfo.name} ${project.title}作品分類，${project.type}，服務${serviceAreas.join("、")}室內設計與裝修規劃`;
+}
+
+function getWorkImageAlt(work, label) {
+  return `${businessInfo.name} ${work.title} ${work.projectTitle ?? ""}${label}，${work.projectType ?? work.meta}，台北南港室內設計案例參考`;
+}
+
+function getProjectSeoIntro(project) {
+  const introByProject = {
+    home:
+      "整理住家室內設計案例，包含格局調整、收納配置、材質搭配與生活動線規劃，提供南港、台北、松山、內湖屋主作為裝修前的參考。",
+    office:
+      "辦公室空間規劃重視接待動線、會議機能、工作區配置與品牌形象，協助台北與南港周邊企業整理清楚耐看的工作場景。",
+    cabinet:
+      "系統櫃設計涵蓋玄關、臥室、書房、更衣室與展示收納，依照台北住家日常使用習慣安排櫃體尺度與收納細節。",
+    render:
+      "空間設計模擬以 3D 渲染呈現格局、材質、光線與收納配置，協助南港、松山、內湖與台北屋主在施工前確認設計方向。",
+  };
+
+  return introByProject[project.id] ?? project.style;
+}
+
+function getCaseSeoText(work) {
+  return `本頁整理${businessInfo.name} ${work.title} ${work.projectTitle}案例，包含${work.projectType}、${work.meta}與設計重點。適合正在尋找南港、台北、松山、內湖室內設計、住家設計或系統櫃規劃的屋主參考。`;
+}
+
+function getPageSeo(path, selectedWork) {
+  if (selectedWork) {
+    return {
+      title: `${selectedWork.title}｜${selectedWork.projectTitle}案例｜${businessInfo.name}`,
+      description: `${businessInfo.name} ${selectedWork.title} ${selectedWork.projectTitle}案例，整理${selectedWork.projectType}、${selectedWork.meta}與空間照片，提供南港、台北、松山、內湖室內設計與裝修規劃參考。`,
+    };
+  }
+
+  if (path === "/works") {
+    return {
+      title: `作品案例｜南港室內設計、台北住家設計｜${businessInfo.name}`,
+      description:
+        "山嵐室內設計作品案例，包含住家室內設計、系統櫃、空間設計模擬與辦公室規劃，服務南港、台北、松山、內湖與周邊地區。",
+    };
+  }
+
+  return {
+    title: "山嵐室內設計｜南港室內設計、台北住家設計、系統櫃規劃",
+    description:
+      "山嵐室內設計位於台北南港，經營二十餘年，提供南港、松山、內湖與台北地區住家室內設計、系統櫃規劃、空間設計模擬與裝修工程服務。",
+  };
+}
+
+function setMetaContent(selector, content) {
+  const element = document.querySelector(selector);
+  if (element) element.setAttribute("content", content);
+}
+
+function useSeoMeta(path, selectedWork) {
+  React.useEffect(() => {
+    const seo = getPageSeo(path, selectedWork);
+    const canonicalPath = path === "/" ? "/" : path;
+    const canonicalUrl = `https://sanlan.vercel.app${canonicalPath}`;
+    let canonical = document.querySelector('link[rel="canonical"]');
+
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.rel = "canonical";
+      document.head.appendChild(canonical);
+    }
+
+    document.title = seo.title;
+    canonical.href = canonicalUrl;
+    setMetaContent('meta[name="description"]', seo.description);
+    setMetaContent('meta[property="og:title"]', seo.title);
+    setMetaContent('meta[property="og:description"]', seo.description);
+    setMetaContent('meta[name="twitter:title"]', seo.title);
+    setMetaContent('meta[name="twitter:description"]', seo.description);
+  }, [path, selectedWork]);
+}
+
 const portfolioCases = projects.flatMap((project) =>
   project.cases.map((work) => ({
     ...work,
@@ -800,6 +889,7 @@ const portfolioCases = projects.flatMap((project) =>
 function App() {
   const path = window.location.pathname;
   const selectedWork = portfolioCases.find((work) => work.href === path);
+  useSeoMeta(path, selectedWork);
 
   return (
     <main className="min-h-screen bg-rice pb-28 text-ink md:pb-0">
@@ -1052,7 +1142,7 @@ function HomePage() {
             <h2 className="section-title">精選空間作品</h2>
           </div>
           <p className="max-w-xl leading-7 text-stonework">
-            作品依住家、辦公室、系統櫃與空間設計模擬分類呈現，整理實際案例照片、空間類型與設計說明。
+            作品依住家、辦公室、系統櫃與空間設計模擬分類呈現，整理實際案例照片、空間類型與設計說明，提供南港、台北、松山與內湖室內設計參考。
           </p>
         </div>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
@@ -1064,7 +1154,7 @@ function HomePage() {
               <div className="aspect-[4/5] overflow-hidden">
                 <ProgressiveImage
                   src={project.image}
-                  alt={`山嵐室內設計 ${project.title} 作品分類`}
+                  alt={getProjectImageAlt(project)}
                   loading="eager"
                   fetchPriority="high"
                   className="h-full w-full"
@@ -1085,6 +1175,30 @@ function HomePage() {
               </div>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="bg-white px-5 py-20 md:px-8">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+          <div>
+            <p className="section-label">Service Area</p>
+            <h2 className="section-title">南港出發，服務台北生活圈</h2>
+          </div>
+          <div>
+            <p className="max-w-3xl leading-8 text-stonework">
+              山嵐室內設計位於台北市南港區，長期服務南港、松山、內湖與台北周邊地區，提供住家室內設計、系統櫃設計、空間設計模擬、老屋翻新與裝修工程整合。從需求盤點、現場丈量、格局與收納規劃，到材質確認與施工落地，協助屋主把日常生活整理成清楚、舒適、耐看的空間。
+            </p>
+            <div className="mt-7 flex flex-wrap gap-2">
+              {localSeoKeywords.map((keyword) => (
+                <span
+                  key={keyword}
+                  className="rounded-full bg-mist px-4 py-2 text-sm font-semibold text-cedar"
+                >
+                  {keyword}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -1237,7 +1351,7 @@ function WorksPage() {
             作品案例
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-stonework">
-            依住家、辦公室、系統櫃與空間設計模擬分頁整理。每個分類底下保留多個案例，方便後續擴充實際照片、坪數與設計說明。
+            山嵐室內設計作品案例依住家、辦公室、系統櫃與空間設計模擬分類整理，提供南港、台北、松山、內湖室內設計與裝修規劃參考。
           </p>
           <div className="mt-10 flex flex-wrap gap-3">
             {projects.map((project) => (
@@ -1268,7 +1382,7 @@ function WorksPage() {
                     {project.title}
                   </h2>
                   <p className="mt-3 leading-7 text-stonework">
-                    {project.style}
+                    {getProjectSeoIntro(project)}
                   </p>
                 </div>
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -1284,7 +1398,14 @@ function WorksPage() {
                         >
                           <ProgressiveImage
                             src={work.cover}
-                            alt={`山嵐室內設計 ${work.title} 案例封面`}
+                            alt={getWorkImageAlt(
+                              {
+                                ...work,
+                                projectTitle: project.title,
+                                projectType: project.type,
+                              },
+                              "案例封面",
+                            )}
                             loading="lazy"
                             className="h-full w-full"
                             imageClassName="h-full w-full object-cover transition duration-700 hover:scale-105"
@@ -1354,6 +1475,9 @@ function CaseGalleryPage({ work }) {
             <p className="mt-5 max-w-2xl leading-8 text-stonework">
               {work.summary}
             </p>
+            <p className="mt-4 max-w-2xl leading-8 text-stonework">
+              {getCaseSeoText(work)}
+            </p>
             <div className="mt-7 flex flex-wrap gap-2">
               {work.tags.map((tag) => (
                 <span
@@ -1369,7 +1493,7 @@ function CaseGalleryPage({ work }) {
             <div className="overflow-hidden rounded-lg bg-white shadow-soft">
               <ProgressiveImage
                 src={work.cover}
-                alt={`山嵐室內設計 ${work.title} 案例首圖`}
+                alt={getWorkImageAlt(work, "案例首圖")}
                 loading="eager"
                 fetchPriority="high"
                 className="max-h-[560px] w-full"
@@ -1401,7 +1525,7 @@ function CaseGalleryPage({ work }) {
             >
               <ProgressiveImage
                 src={image.src}
-                alt={image.alt}
+                alt={`${image.alt}，${businessInfo.name} ${work.projectTitle}作品照片，南港台北室內設計參考`}
                 loading={index > 2 ? "lazy" : "eager"}
                 fetchPriority={index === 0 ? "high" : undefined}
                 className="w-full"
