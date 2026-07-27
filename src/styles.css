@@ -24,8 +24,48 @@
     @apply text-4xl font-semibold leading-tight text-ink md:text-5xl;
   }
 
+  .progressive-image {
+    background:
+      linear-gradient(120deg, rgba(246, 241, 232, 0.18), rgba(255, 255, 255, 0.48), rgba(83, 106, 90, 0.16)),
+      #e4ded2;
+    display: block;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .progressive-image::before {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+    content: "";
+    inset: 0;
+    position: absolute;
+    transform: translateX(-100%);
+    transition: opacity 260ms ease;
+    animation: image-loading-sheen 1.35s ease-in-out infinite;
+  }
+
+  .progressive-image.is-loaded::before {
+    opacity: 0;
+  }
+
+  .progressive-image__img {
+    display: block;
+    opacity: 0;
+    position: relative;
+    transition: opacity 520ms ease, transform 700ms ease;
+  }
+
+  .progressive-image.is-loaded .progressive-image__img {
+    opacity: 1;
+  }
+
   .hero-slide {
     inset: 0;
     position: absolute;
+  }
+}
+
+@keyframes image-loading-sheen {
+  100% {
+    transform: translateX(100%);
   }
 }

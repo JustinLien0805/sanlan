@@ -783,6 +783,11 @@ const heroImages =
         },
       ];
 
+const criticalImageSources = [
+  ...heroImages.slice(0, 3).map((image) => image.src),
+  ...projects.map((project) => project.image).filter(Boolean),
+];
+
 const portfolioCases = projects.flatMap((project) =>
   project.cases.map((work) => ({
     ...work,
@@ -798,6 +803,7 @@ function App() {
 
   return (
     <main className="min-h-screen bg-rice pb-28 text-ink md:pb-0">
+      <ImagePreloads sources={criticalImageSources} />
       <Header />
       {selectedWork ? (
         <CaseGalleryPage work={selectedWork} />
@@ -813,6 +819,57 @@ function App() {
         <QuickContactBar actions={heroContactActions} compact />
       </div>
     </main>
+  );
+}
+
+function ImagePreloads({ sources }) {
+  React.useEffect(() => {
+    const preloadLinks = [...new Set(sources)]
+      .filter(Boolean)
+      .map((source) => {
+        const link = document.createElement("link");
+        link.rel = "preload";
+        link.as = "image";
+        link.href = source;
+        document.head.appendChild(link);
+        return link;
+      });
+
+    return () => {
+      preloadLinks.forEach((link) => link.remove());
+    };
+  }, [sources]);
+
+  return null;
+}
+
+function ProgressiveImage({
+  src,
+  alt,
+  className = "",
+  imageClassName = "",
+  loading,
+  fetchPriority,
+}) {
+  const [isLoaded, setIsLoaded] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsLoaded(false);
+  }, [src]);
+
+  return (
+    <span
+      className={`progressive-image ${isLoaded ? "is-loaded" : ""} ${className}`}
+    >
+      <img
+        src={src}
+        alt={alt}
+        loading={loading}
+        fetchpriority={fetchPriority}
+        onLoad={() => setIsLoaded(true)}
+        className={`progressive-image__img ${imageClassName}`}
+      />
+    </span>
   );
 }
 
@@ -871,14 +928,26 @@ function Header() {
 
 function HeroSlideshow() {
   const [activeSlide, setActiveSlide] = React.useState(0);
+  const totalSlides = heroImages.length;
 
   React.useEffect(() => {
     const timer = window.setInterval(() => {
-      setActiveSlide((currentSlide) => (currentSlide + 1) % heroImages.length);
+      setActiveSlide((currentSlide) => (currentSlide + 1) % totalSlides);
     }, 4000);
 
     return () => window.clearInterval(timer);
-  }, []);
+  }, [totalSlides]);
+
+  function shouldRenderSlide(index) {
+    if (totalSlides <= 4) return true;
+
+    return [
+      activeSlide,
+      (activeSlide + 1) % totalSlides,
+      (activeSlide + 2) % totalSlides,
+      (activeSlide - 1 + totalSlides) % totalSlides,
+    ].includes(index);
+  }
 
   return (
     <motion.a
@@ -890,16 +959,23 @@ function HeroSlideshow() {
       }}
       transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
     >
-      {heroImages.map((image, index) => (
-        <img
-          key={image.label}
-          src={image.src}
-          alt={image.alt}
-          className={`hero-slide h-full w-full object-cover transition duration-700 group-hover:scale-105 ${
-            activeSlide === index ? "opacity-100" : "opacity-0"
-          }`}
-        />
-      ))}
+      {heroImages.map((image, index) => {
+        if (!shouldRenderSlide(index)) return null;
+
+        return (
+          <ProgressiveImage
+            key={image.label}
+            src={image.src}
+            alt={image.alt}
+            loading={index > 2 ? "lazy" : "eager"}
+            fetchPriority={index === 0 ? "high" : undefined}
+            className={`hero-slide h-full w-full transition-opacity duration-700 ${
+              activeSlide === index ? "opacity-100" : "opacity-0"
+            }`}
+            imageClassName="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+          />
+        );
+      })}
       <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/70 via-ink/20 to-transparent p-6 text-white">
         <p className="text-sm font-semibold tracking-[0.18em]">SANLAN WORKS</p>
         <p className="mt-2 text-2xl font-semibold">作品精選</p>
@@ -926,6 +1002,8 @@ function HomePage() {
               <img
                 src={titleImage}
                 alt="山嵐室內設計"
+                loading="eager"
+                fetchpriority="high"
                 className="h-auto w-full max-w-[720px]"
               />
             </h1>
@@ -984,10 +1062,13 @@ function HomePage() {
               className="group overflow-hidden rounded-lg bg-white shadow-soft"
             >
               <div className="aspect-[4/5] overflow-hidden">
-                <img
+                <ProgressiveImage
                   src={project.image}
                   alt={`山嵐室內設計 ${project.title} 作品分類`}
-                  className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                  loading="eager"
+                  fetchPriority="high"
+                  className="h-full w-full"
+                  imageClassName="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                 />
               </div>
               <div className="p-6">
@@ -1201,10 +1282,12 @@ function WorksPage() {
                           href={work.href}
                           className="block aspect-[4/3] overflow-hidden bg-mist"
                         >
-                          <img
+                          <ProgressiveImage
                             src={work.cover}
                             alt={`山嵐室內設計 ${work.title} 案例封面`}
-                            className="h-full w-full object-cover transition duration-700 hover:scale-105"
+                            loading="lazy"
+                            className="h-full w-full"
+                            imageClassName="h-full w-full object-cover transition duration-700 hover:scale-105"
                           />
                         </a>
                       )}
@@ -1284,10 +1367,13 @@ function CaseGalleryPage({ work }) {
           </div>
           {work.cover && (
             <div className="overflow-hidden rounded-lg bg-white shadow-soft">
-              <img
+              <ProgressiveImage
                 src={work.cover}
                 alt={`山嵐室內設計 ${work.title} 案例首圖`}
-                className="h-full max-h-[560px] w-full object-cover"
+                loading="eager"
+                fetchPriority="high"
+                className="max-h-[560px] w-full"
+                imageClassName="h-full max-h-[560px] w-full object-cover"
               />
             </div>
           )}
@@ -1313,11 +1399,13 @@ function CaseGalleryPage({ work }) {
               rel="noreferrer"
               className="mb-5 block break-inside-avoid overflow-hidden rounded-lg bg-white shadow-soft"
             >
-              <img
+              <ProgressiveImage
                 src={image.src}
                 alt={image.alt}
-                loading={index > 2 ? "lazy" : undefined}
-                className="h-auto w-full transition duration-700 hover:scale-[1.025]"
+                loading={index > 2 ? "lazy" : "eager"}
+                fetchPriority={index === 0 ? "high" : undefined}
+                className="w-full"
+                imageClassName="h-auto w-full transition duration-700 hover:scale-[1.025]"
               />
             </a>
           ))}
