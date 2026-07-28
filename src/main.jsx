@@ -142,6 +142,26 @@ const chenChongyang136Images = getProjectImages(
   "陳宅/重陽136 住家",
 );
 
+const techCompanyOfficeImages = getProjectImages(
+  "office/a",
+  "科技公司 辦公室",
+);
+
+const travelCompanyOfficeImages = getProjectImages(
+  "office/b",
+  "旅遊公司 辦公室",
+);
+
+const agencyCompanyOfficeImages = getProjectImages(
+  "office/c",
+  "仲介公司 辦公室",
+);
+
+const storageCompanyOfficeImages = getProjectImages(
+  "office/d",
+  "迷你倉儲 辦公室",
+);
+
 const wangYanjiuyuanCabinetImages = getProjectImages(
   "cabinet/wang",
   "王宅/研究院 系統櫃",
@@ -486,14 +506,51 @@ const projects = [
     title: "辦公室",
     type: "辦公空間設計",
     style: "接待區、會議室、工作區與品牌形象空間配置。",
-    image:
-      "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80",
+    image: techCompanyOfficeImages[0]?.src,
     cases: [
       {
-        title: "品牌接待辦公室",
-        meta: "台北內湖 / 56 坪 / 辦公室",
-        tags: ["接待區", "會議室", "品牌牆"],
-        summary: "以簡潔材質建立第一印象，讓訪客與團隊都能自然使用。",
+        id: "tech-company-office",
+        title: "科技公司",
+        meta: "辦公室",
+        tags: ["辦公室", "接待區", "工作區"],
+        summary:
+          "以清楚動線、材質配置與工作機能整理辦公場景，建立俐落專業的企業形象。",
+        images: techCompanyOfficeImages,
+        cover: techCompanyOfficeImages[0]?.src,
+        href: "/works/tech-company-office",
+      },
+      {
+        id: "travel-company-office",
+        title: "旅遊公司",
+        meta: "辦公室",
+        tags: ["辦公室", "接待區", "會議空間"],
+        summary:
+          "以開放、明亮的辦公配置整理接待與工作需求，讓品牌形象與日常使用自然銜接。",
+        images: travelCompanyOfficeImages,
+        cover: travelCompanyOfficeImages[0]?.src,
+        href: "/works/travel-company-office",
+      },
+      {
+        id: "agency-company-office",
+        title: "仲介公司",
+        meta: "辦公室",
+        tags: ["辦公室", "洽談區", "品牌形象"],
+        summary:
+          "整合洽談、接待與辦公機能，讓客戶接觸與團隊工作都維持清楚順手的節奏。",
+        images: agencyCompanyOfficeImages,
+        cover: agencyCompanyOfficeImages[0]?.src,
+        href: "/works/agency-company-office",
+      },
+      {
+        id: "storage-company-office",
+        title: "迷你倉儲",
+        meta: "辦公室",
+        tags: ["辦公室", "接待區", "商業空間"],
+        summary:
+          "以服務流程與空間辨識度為核心，整理接待、展示與日常管理需要的辦公配置。",
+        images: storageCompanyOfficeImages,
+        cover: storageCompanyOfficeImages[0]?.src,
+        href: "/works/storage-company-office",
       },
     ],
   },
