@@ -69,10 +69,7 @@ const luXiangyangImages = getProjectImages(
   "residential/lu-xiangyang-258",
   "陸宅/向陽258 住家",
 );
-const luXiangyangCover =
-  luXiangyangImages.find((image) =>
-    image.path.includes("8F04E481-A7D9-4AE1-941F-C4A31EA0E03F"),
-  )?.src ?? luXiangyangImages[0]?.src;
+const luXiangyangCover = luXiangyangImages[0]?.src;
 
 const zhouImages = getProjectImages("residential/zhou", "周宅 住家");
 
@@ -1511,88 +1508,120 @@ function WorksPage() {
 
 function CaseGalleryPage({ work }) {
   const galleryImages = work.images ?? [];
+  const [activeIndex, setActiveIndex] = React.useState(0);
+  const activeImage = galleryImages[activeIndex] ?? {
+    src: work.cover,
+    alt: `${work.title}案例照片`,
+  };
+  const hasMultipleImages = galleryImages.length > 1;
+
+  React.useEffect(() => {
+    setActiveIndex(0);
+  }, [work.href]);
+
+  const showPreviousImage = () => {
+    if (!hasMultipleImages) return;
+    setActiveIndex((index) =>
+      index === 0 ? galleryImages.length - 1 : index - 1,
+    );
+  };
+
+  const showNextImage = () => {
+    if (!hasMultipleImages) return;
+    setActiveIndex((index) =>
+      index === galleryImages.length - 1 ? 0 : index + 1,
+    );
+  };
 
   return (
-    <>
-      <section className="px-5 pt-32 md:px-8">
-        <div className="mx-auto grid max-w-7xl gap-10 border-b border-ink/10 pb-14 lg:grid-cols-[0.76fr_1.24fr] lg:items-end">
+    <section className="px-5 pt-24 md:px-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-6 flex flex-col justify-between gap-4 border-b border-ink/10 pb-5 md:flex-row md:items-end">
           <div>
             <a
-              href="/works#case-home"
-              className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-cedar"
+              href={`/works#case-${work.projectId}`}
+              className="mb-5 inline-flex items-center gap-2 text-sm font-semibold text-cedar"
             >
               <ArrowLeft size={15} />
               返回作品案例
             </a>
-            <p className="section-label">{work.projectTitle}</p>
-            <h1 className="max-w-3xl text-4xl font-semibold leading-tight md:text-5xl">
+            <p className="text-sm font-semibold text-clay">
+              {work.projectTitle} / {work.meta}
+            </p>
+            <h1 className="mt-2 text-3xl font-semibold leading-tight md:text-4xl">
               {work.title}
             </h1>
-            <p className="mt-5 text-lg leading-8 text-stonework">{work.meta}</p>
-            <p className="mt-5 max-w-2xl leading-8 text-stonework">
-              {work.summary}
-            </p>
-            <p className="mt-4 max-w-2xl leading-8 text-stonework">
-              {getCaseSeoText(work)}
-            </p>
-            <div className="mt-7 flex flex-wrap gap-2">
-              {work.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full bg-white px-3 py-1 text-xs font-medium text-cedar"
+          </div>
+          <p className="text-sm leading-6 text-stonework">
+            {activeIndex + 1} / {galleryImages.length} 張照片
+          </p>
+        </div>
+
+        {activeImage?.src && (
+          <div className="relative overflow-hidden rounded-lg bg-white shadow-soft">
+            <ProgressiveImage
+              src={activeImage.src}
+              alt={`${activeImage.alt}，${businessInfo.name} ${work.projectTitle}作品照片，南港台北室內設計參考`}
+              loading="eager"
+              fetchPriority="high"
+              className="flex h-[64vh] min-h-[420px] w-full items-center justify-center bg-black md:h-[70vh]"
+              imageClassName="h-full w-full object-contain"
+            />
+
+            {hasMultipleImages && (
+              <>
+                <button
+                  type="button"
+                  onClick={showPreviousImage}
+                  aria-label="上一張照片"
+                  className="absolute left-3 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-ink/70 text-white shadow-soft backdrop-blur transition hover:bg-ink/90 md:left-5"
                 >
-                  {tag}
-                </span>
+                  <ArrowLeft size={20} />
+                </button>
+                <button
+                  type="button"
+                  onClick={showNextImage}
+                  aria-label="下一張照片"
+                  className="absolute right-3 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-ink/70 text-white shadow-soft backdrop-blur transition hover:bg-ink/90 md:right-5"
+                >
+                  <ArrowRight size={20} />
+                </button>
+              </>
+            )}
+          </div>
+        )}
+
+        {galleryImages.length > 0 && (
+          <div className="mt-5 overflow-x-auto pb-3">
+            <div className="flex min-w-max gap-3">
+              {galleryImages.map((image, index) => (
+                <button
+                  key={image.src}
+                  type="button"
+                  onClick={() => setActiveIndex(index)}
+                  aria-label={`查看第 ${index + 1} 張照片`}
+                  className={`h-20 w-28 shrink-0 overflow-hidden rounded-md border bg-white transition md:h-24 md:w-36 ${
+                    index === activeIndex
+                      ? "border-cedar ring-2 ring-cedar/30"
+                      : "border-ink/10 opacity-70 hover:opacity-100"
+                  }`}
+                >
+                  <ProgressiveImage
+                    src={image.src}
+                    alt={`${image.alt}縮圖`}
+                    loading={index > 6 ? "lazy" : "eager"}
+                    className="h-full w-full"
+                    imageClassName="h-full w-full object-cover"
+                  />
+                </button>
               ))}
             </div>
           </div>
-          {work.cover && (
-            <div className="overflow-hidden rounded-lg bg-white shadow-soft">
-              <ProgressiveImage
-                src={work.cover}
-                alt={getWorkImageAlt(work, "案例首圖")}
-                loading="eager"
-                fetchPriority="high"
-                className="max-h-[560px] w-full"
-                imageClassName="h-full max-h-[560px] w-full object-cover"
-              />
-            </div>
-          )}
-        </div>
-      </section>
+        )}
 
-      <section className="mx-auto max-w-7xl px-5 py-16 md:px-8">
-        <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
-          <div>
-            <p className="section-label">Gallery</p>
-            <h2 className="section-title">空間照片</h2>
-          </div>
-          <p className="text-sm leading-6 text-stonework">
-            共 {galleryImages.length} 張照片
-          </p>
-        </div>
-        <div className="columns-1 gap-5 sm:columns-2 lg:columns-3">
-          {galleryImages.map((image, index) => (
-            <a
-              key={image.src}
-              href={image.src}
-              target="_blank"
-              rel="noreferrer"
-              className="mb-5 block break-inside-avoid overflow-hidden rounded-lg bg-white shadow-soft"
-            >
-              <ProgressiveImage
-                src={image.src}
-                alt={`${image.alt}，${businessInfo.name} ${work.projectTitle}作品照片，南港台北室內設計參考`}
-                loading={index > 2 ? "lazy" : "eager"}
-                fetchPriority={index === 0 ? "high" : undefined}
-                className="w-full"
-                imageClassName="h-auto w-full transition duration-700 hover:scale-[1.025]"
-              />
-            </a>
-          ))}
-        </div>
-      </section>
-    </>
+        <p className="sr-only">{getCaseSeoText(work)}</p>
+      </div>
+    </section>
   );
 }
 
