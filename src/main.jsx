@@ -1010,6 +1010,7 @@ function ProgressiveImage({
         alt={alt}
         loading={loading}
         fetchpriority={fetchPriority}
+        draggable={false}
         onLoad={() => setIsLoaded(true)}
         className={`progressive-image__img ${imageClassName}`}
       />
@@ -1533,8 +1534,12 @@ function CaseGalleryPage({ work }) {
     );
   };
 
+  const preventControlSelection = (event) => {
+    event.preventDefault();
+  };
+
   return (
-    <section className="px-5 pt-24 md:px-8">
+    <section className="case-gallery px-5 pt-24 md:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-6 flex flex-col justify-between gap-4 border-b border-ink/10 pb-5 md:flex-row md:items-end">
           <div>
@@ -1573,16 +1578,18 @@ function CaseGalleryPage({ work }) {
                 <button
                   type="button"
                   onClick={showPreviousImage}
+                  onMouseDown={preventControlSelection}
                   aria-label="上一張照片"
-                  className="absolute left-3 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-ink/70 text-white shadow-soft backdrop-blur transition hover:bg-ink/90 md:left-5"
+                  className="gallery-control absolute left-3 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-ink/70 text-white shadow-soft backdrop-blur transition hover:bg-ink/90 md:left-5"
                 >
                   <ArrowLeft size={20} />
                 </button>
                 <button
                   type="button"
                   onClick={showNextImage}
+                  onMouseDown={preventControlSelection}
                   aria-label="下一張照片"
-                  className="absolute right-3 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-ink/70 text-white shadow-soft backdrop-blur transition hover:bg-ink/90 md:right-5"
+                  className="gallery-control absolute right-3 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-ink/70 text-white shadow-soft backdrop-blur transition hover:bg-ink/90 md:right-5"
                 >
                   <ArrowRight size={20} />
                 </button>
@@ -1599,8 +1606,9 @@ function CaseGalleryPage({ work }) {
                   key={image.src}
                   type="button"
                   onClick={() => setActiveIndex(index)}
+                  onMouseDown={preventControlSelection}
                   aria-label={`查看第 ${index + 1} 張照片`}
-                  className={`h-20 w-28 shrink-0 overflow-hidden rounded-md border bg-white transition md:h-24 md:w-36 ${
+                  className={`gallery-control h-20 w-28 shrink-0 overflow-hidden rounded-md border bg-white transition md:h-24 md:w-36 ${
                     index === activeIndex
                       ? "border-cedar ring-2 ring-cedar/30"
                       : "border-ink/10 opacity-70 hover:opacity-100"
