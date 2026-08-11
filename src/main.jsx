@@ -19,6 +19,7 @@ import {
   Ruler,
   Sparkles,
 } from "lucide-react";
+import logoImage from "./img/brand/sanlan-design-logo-black.png";
 import titleImage from "./img/brand/title.png";
 import "./styles.css";
 
@@ -1022,8 +1023,12 @@ function Header() {
   return (
     <header className="fixed left-0 right-0 top-0 z-50 border-b border-ink/10 bg-rice/92 text-ink backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:px-8">
-        <a href="/" className="text-lg font-semibold tracking-wide">
-          {businessInfo.name}
+        <a href="/" className="inline-flex items-center" aria-label={businessInfo.name}>
+          <img
+            src={logoImage}
+            alt=""
+            className="h-8 w-auto md:h-9"
+          />
         </a>
         <nav className="hidden items-center gap-8 text-sm md:flex">
           {navItems.map(([label, href]) => (
@@ -1202,9 +1207,10 @@ function HomePage() {
         </div>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {projects.map((project) => (
-            <article
+            <a
               key={project.title}
-              className="group overflow-hidden rounded-lg bg-white shadow-soft"
+              href={`/works#case-${project.id}`}
+              className="group block overflow-hidden rounded-lg bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(36,33,29,0.16)] focus:outline-none focus-visible:ring-2 focus-visible:ring-cedar/60"
             >
               <div className="aspect-[4/5] overflow-hidden">
                 <ProgressiveImage
@@ -1220,15 +1226,12 @@ function HomePage() {
                 <p className="text-sm text-clay">{project.type}</p>
                 <h3 className="mt-2 text-2xl font-semibold">{project.title}</h3>
                 <p className="mt-3 leading-7 text-stonework">{project.style}</p>
-                <a
-                  href={`/works#case-${project.id}`}
-                  className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-cedar"
-                >
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-cedar">
                   查看 {project.cases.length} 個案例
                   <ArrowRight size={15} />
-                </a>
+                </span>
               </div>
-            </article>
+            </a>
           ))}
         </div>
       </section>
@@ -1397,6 +1400,18 @@ function HomePage() {
 }
 
 function WorksPage() {
+  React.useEffect(() => {
+    if (!window.location.hash) return;
+
+    const targetId = window.location.hash.slice(1);
+    const targetElement = document.getElementById(targetId);
+    if (!targetElement) return;
+
+    window.requestAnimationFrame(() => {
+      targetElement.scrollIntoView({ block: "start" });
+    });
+  }, []);
+
   return (
     <>
       <section className="px-5 pt-32 md:px-8">
