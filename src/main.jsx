@@ -18,6 +18,7 @@ import {
   Phone,
   Ruler,
   Sparkles,
+  X,
 } from "lucide-react";
 import logoImage from "./img/brand/sanlan-design-logo-black.png";
 import titleImage from "./img/brand/title.png";
@@ -140,10 +141,7 @@ const chenChongyang136Images = getProjectImages(
   "陳宅/重陽136 住家",
 );
 
-const techCompanyOfficeImages = getProjectImages(
-  "office/a",
-  "科技公司 辦公室",
-);
+const techCompanyOfficeImages = getProjectImages("office/a", "科技公司 辦公室");
 
 const travelCompanyOfficeImages = getProjectImages(
   "office/b",
@@ -157,7 +155,7 @@ const agencyCompanyOfficeImages = getProjectImages(
 
 const storageCompanyOfficeImages = getProjectImages(
   "office/d",
-  "迷你倉儲 辦公室",
+  "Airbnb 辦公室",
 );
 
 const wangYanjiuyuanCabinetImages = getProjectImages(
@@ -306,7 +304,7 @@ const projects = [
     cases: [
       {
         id: "zheng-residence",
-        title: "鄭宅/自強案",
+        title: "鄭宅/中和自強",
         meta: "新北中和區 / 住家",
         tags: ["住家", "中和區", "完工案例"],
         summary:
@@ -316,39 +314,8 @@ const projects = [
         href: "/works/zheng-residence",
       },
       {
-        id: "lu-residence",
-        title: "陸宅/向陽258",
-        meta: "住家",
-        tags: ["住家", "完工案例"],
-        summary:
-          "以簡潔配置與實用收納回應日常生活，讓空間維持清楚、舒適的使用節奏。",
-        images: luXiangyangImages,
-        cover: luXiangyangCover,
-        href: "/works/lu-residence",
-      },
-      {
-        id: "zhou-residence",
-        title: "周宅/森活莊園",
-        meta: "住家",
-        tags: ["住家", "完工案例"],
-        summary: "以清楚動線與舒適材質整理居家尺度，讓日常使用更自然順手。",
-        images: zhouImages,
-        cover: zhouImages[0]?.src,
-        href: "/works/zhou-residence",
-      },
-      {
-        id: "lin-yanji",
-        title: "林宅/延吉街",
-        meta: "住家",
-        tags: ["住家", "完工案例"],
-        summary: "以柔和材質與清楚收納安排日常場景，維持舒適、耐看的居家表情。",
-        images: linYanjiImages,
-        cover: linYanjiImages[0]?.src,
-        href: "/works/lin-yanji",
-      },
-      {
         id: "huang-xiangxie-13",
-        title: "黃宅/香榭13",
+        title: "黃宅/南港香榭13",
         meta: "住家",
         tags: ["住家", "完工案例"],
         summary: "以清爽格局與細緻收納整理居家動線，讓生活場景更俐落舒適。",
@@ -357,19 +324,18 @@ const projects = [
         href: "/works/huang-xiangxie-13",
       },
       {
-        id: "du-qingtian-forest",
-        title: "杜宅/晴天森林",
+        id: "lin-yanji",
+        title: "林宅/延吉",
         meta: "住家",
         tags: ["住家", "完工案例"],
-        summary:
-          "以清楚收納、柔和材質與生活動線整理居家場景，讓日常使用更舒適順手。",
-        images: duQingtianImages,
-        cover: duQingtianImages[0]?.src,
-        href: "/works/du-qingtian-forest",
+        summary: "以柔和材質與清楚收納安排日常場景，維持舒適、耐看的居家表情。",
+        images: linYanjiImages,
+        cover: linYanjiImages[0]?.src,
+        href: "/works/lin-yanji",
       },
       {
         id: "liu-taoyuan",
-        title: "劉宅/桃園",
+        title: "劉宅/桃園東騰",
         meta: "住家",
         tags: ["住家", "完工案例"],
         summary:
@@ -379,59 +345,14 @@ const projects = [
         href: "/works/liu-taoyuan",
       },
       {
-        id: "tseng-fushun",
-        title: "曾宅/撫順街",
+        id: "zhou-residence",
+        title: "周宅/新店森活莊園",
         meta: "住家",
         tags: ["住家", "完工案例"],
-        summary:
-          "以清楚動線、收納配置與材質細節整理生活場景，讓居家使用更自然耐看。",
-        images: tsengFushunImages,
-        cover: tsengFushunImages[0]?.src,
-        href: "/works/tseng-fushun",
-      },
-      {
-        id: "zheng-yanjiuyuan",
-        title: "鄭宅/研究院",
-        meta: "住家",
-        tags: ["住家", "完工案例"],
-        summary:
-          "以清楚格局、收納配置與材質細節整理日常尺度，讓居家空間更舒適耐看。",
-        images: zhengYanjiuyuanImages,
-        cover: zhengYanjiuyuanImages[0]?.src,
-        href: "/works/zheng-yanjiuyuan",
-      },
-      {
-        id: "su-zili",
-        title: "蘇宅/自立路",
-        meta: "住家",
-        tags: ["住家", "完工案例"],
-        summary:
-          "以生活動線、收納安排與材質細節整合居家需求，讓日常空間更清楚舒適。",
-        images: suZiliImages,
-        cover: suZiliImages[0]?.src,
-        href: "/works/su-zili",
-      },
-      {
-        id: "hong-xinju",
-        title: "洪宅/心居",
-        meta: "住家",
-        tags: ["住家", "完工案例"],
-        summary:
-          "以清楚動線、收納安排與柔和材質整理居家場景，讓日常尺度更舒適耐看。",
-        images: hongXinjuImages,
-        cover: hongXinjuImages[0]?.src,
-        href: "/works/hong-xinju",
-      },
-      {
-        id: "zhao-jingmao-2nd",
-        title: "趙宅/經貿二路",
-        meta: "住家",
-        tags: ["住家", "完工案例"],
-        summary:
-          "以生活動線、收納配置與材質細節整理居家尺度，讓空間更清楚舒適。",
-        images: zhaoJingmaoImages,
-        cover: zhaoJingmaoImages[0]?.src,
-        href: "/works/zhao-jingmao-2nd",
+        summary: "以清楚動線與舒適材質整理居家尺度，讓日常使用更自然順手。",
+        images: zhouImages,
+        cover: zhouImages[0]?.src,
+        href: "/works/zhou-residence",
       },
       {
         id: "yang-linkou",
@@ -445,6 +366,28 @@ const projects = [
         href: "/works/yang-linkou",
       },
       {
+        id: "qiu-xindian",
+        title: "邱宅/新店",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以居住需求為基礎整理格局、收納與材質方向，打造清楚舒適的生活空間。",
+        images: qiuXindianImages,
+        cover: qiuXindianImages[0]?.src,
+        href: "/works/qiu-xindian",
+      },
+      {
+        id: "chen-chongyang-136",
+        title: "陳宅/重陽136",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以生活動線、收納配置與材質細節整理日常尺度，讓居家空間更清楚舒適。",
+        images: chenChongyang136Images,
+        cover: chenChongyang136Images[0]?.src,
+        href: "/works/chen-chongyang-136",
+      },
+      {
         id: "lin-songhe",
         title: "林宅/松河街",
         meta: "住家",
@@ -455,26 +398,70 @@ const projects = [
         href: "/works/lin-songhe",
       },
       {
-        id: "lin-jinxi",
-        title: "林宅/錦西街",
+        id: "zhao-jingmao-2nd",
+        title: "趙宅/經貿二路",
         meta: "住家",
         tags: ["住家", "完工案例"],
         summary:
-          "整合收納、材質與光線細節，讓日常空間維持清爽且耐看的使用狀態。",
-        images: linJinxiImages,
-        cover: linJinxiImages[0]?.src,
-        href: "/works/lin-jinxi",
+          "以生活動線、收納配置與材質細節整理居家尺度，讓空間更清楚舒適。",
+        images: zhaoJingmaoImages,
+        cover: zhaoJingmaoImages[0]?.src,
+        href: "/works/zhao-jingmao-2nd",
       },
       {
-        id: "qiu-xindian",
-        title: "邱宅/新店",
+        id: "hong-xinju",
+        title: "洪宅/南港心居",
         meta: "住家",
         tags: ["住家", "完工案例"],
         summary:
-          "以居住需求為基礎整理格局、收納與材質方向，打造清楚舒適的生活空間。",
-        images: qiuXindianImages,
-        cover: qiuXindianImages[0]?.src,
-        href: "/works/qiu-xindian",
+          "以清楚動線、收納安排與柔和材質整理居家場景，讓日常尺度更舒適耐看。",
+        images: hongXinjuImages,
+        cover: hongXinjuImages[0]?.src,
+        href: "/works/hong-xinju",
+      },
+      {
+        id: "lu-residence",
+        title: "陸宅/向陽258",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以簡潔配置與實用收納回應日常生活，讓空間維持清楚、舒適的使用節奏。",
+        images: luXiangyangImages,
+        cover: luXiangyangCover,
+        href: "/works/lu-residence",
+      },
+      {
+        id: "du-qingtian-forest",
+        title: "杜宅/南港擎天森林",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以清楚收納、柔和材質與生活動線整理居家場景，讓日常使用更舒適順手。",
+        images: duQingtianImages,
+        cover: duQingtianImages[0]?.src,
+        href: "/works/du-qingtian-forest",
+      },
+      {
+        id: "zheng-yanjiuyuan",
+        title: "鄭宅/研究院",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以清楚格局、收納配置與材質細節整理日常尺度，讓居家空間更舒適耐看。",
+        images: zhengYanjiuyuanImages,
+        cover: zhengYanjiuyuanImages[0]?.src,
+        href: "/works/zheng-yanjiuyuan",
+      },
+      {
+        id: "tseng-fushun",
+        title: "曾宅/撫順街",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以清楚動線、收納配置與材質細節整理生活場景，讓居家使用更自然耐看。",
+        images: tsengFushunImages,
+        cover: tsengFushunImages[0]?.src,
+        href: "/works/tseng-fushun",
       },
       {
         id: "chen-zhonghe",
@@ -487,15 +474,26 @@ const projects = [
         href: "/works/chen-zhonghe",
       },
       {
-        id: "chen-chongyang-136",
-        title: "陳宅/重陽136",
+        id: "su-zili",
+        title: "蘇宅/中和自立",
         meta: "住家",
         tags: ["住家", "完工案例"],
         summary:
-          "以生活動線、收納配置與材質細節整理日常尺度，讓居家空間更清楚舒適。",
-        images: chenChongyang136Images,
-        cover: chenChongyang136Images[0]?.src,
-        href: "/works/chen-chongyang-136",
+          "以生活動線、收納安排與材質細節整合居家需求，讓日常空間更清楚舒適。",
+        images: suZiliImages,
+        cover: suZiliImages[0]?.src,
+        href: "/works/su-zili",
+      },
+      {
+        id: "lin-jinxi",
+        title: "林宅/中山錦西",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "整合收納、材質與光線細節，讓日常空間維持清爽且耐看的使用狀態。",
+        images: linJinxiImages,
+        cover: linJinxiImages[0]?.src,
+        href: "/works/lin-jinxi",
       },
     ],
   },
@@ -541,7 +539,7 @@ const projects = [
       },
       {
         id: "storage-company-office",
-        title: "迷你倉儲",
+        title: "Airbnb",
         meta: "辦公室",
         tags: ["辦公室", "接待區", "商業空間"],
         summary:
@@ -864,8 +862,7 @@ function getWorkImageAlt(work, label) {
 
 function getProjectSeoIntro(project) {
   const introByProject = {
-    home:
-      "整理住家室內設計案例，包含格局調整、收納配置、材質搭配與生活動線規劃，提供南港、台北、松山、內湖屋主作為裝修前的參考。",
+    home: "整理住家室內設計案例，包含格局調整、收納配置、材質搭配與生活動線規劃，提供南港、台北、松山、內湖屋主作為裝修前的參考。",
     office:
       "辦公室空間規劃重視接待動線、會議機能、工作區配置與品牌形象，協助台北與南港周邊企業整理清楚耐看的工作場景。",
     cabinet:
@@ -969,16 +966,14 @@ function App() {
 
 function ImagePreloads({ sources }) {
   React.useEffect(() => {
-    const preloadLinks = [...new Set(sources)]
-      .filter(Boolean)
-      .map((source) => {
-        const link = document.createElement("link");
-        link.rel = "preload";
-        link.as = "image";
-        link.href = source;
-        document.head.appendChild(link);
-        return link;
-      });
+    const preloadLinks = [...new Set(sources)].filter(Boolean).map((source) => {
+      const link = document.createElement("link");
+      link.rel = "preload";
+      link.as = "image";
+      link.href = source;
+      document.head.appendChild(link);
+      return link;
+    });
 
     return () => {
       preloadLinks.forEach((link) => link.remove());
@@ -1020,15 +1015,17 @@ function ProgressiveImage({
 }
 
 function Header() {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
   return (
-    <header className="fixed left-0 right-0 top-0 z-50 border-b border-ink/10 bg-rice/92 text-ink backdrop-blur-md">
+    <header className="fixed left-0 right-0 top-0 z-50 border-b border-ink/15 bg-[#cbbea8] text-ink backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:px-8">
-        <a href="/" className="inline-flex items-center" aria-label={businessInfo.name}>
-          <img
-            src={logoImage}
-            alt=""
-            className="h-8 w-auto md:h-9"
-          />
+        <a
+          href="/"
+          className="inline-flex items-center"
+          aria-label={businessInfo.name}
+        >
+          <img src={logoImage} alt="" className="h-14 w-auto" />
         </a>
         <nav className="hidden items-center gap-8 text-sm md:flex">
           {navItems.map(([label, href]) => (
@@ -1066,12 +1063,38 @@ function Header() {
           </a>
         </div>
         <button
+          type="button"
+          onClick={() => setIsMenuOpen((open) => !open)}
           className="grid size-10 place-items-center rounded-full border border-ink/15 md:hidden"
+          aria-expanded={isMenuOpen}
           aria-label="開啟選單"
         >
-          <Menu size={20} />
+          {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
+      {isMenuOpen && (
+        <div className="border-t border-ink/10 bg-rice/98 px-5 py-4 shadow-soft md:hidden">
+          <nav className="mx-auto grid max-w-7xl gap-1 text-base font-medium">
+            {navItems.map(([label, href]) => (
+              <a
+                key={label}
+                href={href}
+                onClick={() => setIsMenuOpen(false)}
+                className="rounded-md px-3 py-3 transition hover:bg-white"
+              >
+                {label}
+              </a>
+            ))}
+            <a
+              href="#聯絡"
+              onClick={() => setIsMenuOpen(false)}
+              className="mt-2 rounded-full bg-ink px-4 py-3 text-center text-sm font-semibold text-white"
+            >
+              預約諮詢
+            </a>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }
@@ -1154,11 +1177,14 @@ function HomePage() {
                 alt="山嵐室內設計"
                 loading="eager"
                 fetchpriority="high"
-                className="h-auto w-full max-w-[720px]"
+                className="h-auto w-full max-w-[560px] md:max-w-[640px]"
               />
             </h1>
             <p className="mt-8 max-w-2xl text-lg leading-8 text-stonework md:text-xl">
-              在南港落地生根二十餘年的山嵐，以專業務實、誠信的經營理念，為客戶創造嶄新舒適且富有品味的生活空間。
+              南港落地生根二十餘年的山嵐，以專業務實、誠信的經營理念
+              <span className="block sm:inline">
+                為客戶創造嶄新舒適且富有品味的生活空間。
+              </span>
             </p>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">
               <a
@@ -1236,7 +1262,7 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="bg-white px-5 py-20 md:px-8">
+      <section className="sr-only">
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
           <div>
             <p className="section-label">Service Area</p>
@@ -1654,7 +1680,7 @@ function ContactSection() {
       <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-center">
         <div>
           <p className="section-label text-mist">Contact</p>
-          <h2 className="section-title text-white">一起規劃你的理想空間</h2>
+          <h2 className="section-title text-white">聯絡資訊</h2>
           <p className="mt-6 max-w-2xl leading-8 text-white/70">
             歡迎來到台北市南港區重陽路45號1樓，或直接透過 Facebook、LINE、電話與
             Email 聯繫山嵐室內設計。
