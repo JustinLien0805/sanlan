@@ -25,7 +25,7 @@ import titleImage from "./img/brand/title.png";
 import "./styles.css";
 
 const projectImageModules = import.meta.glob(
-  "./img/projects/**/*.{jpg,JPG,jpeg,JPEG,png,PNG}",
+  "./img/projects/**/*.{png,PNG,webp,WEBP}",
   {
     eager: true,
     import: "default",
@@ -34,7 +34,7 @@ const projectImageModules = import.meta.glob(
 );
 
 const slideImageModules = import.meta.glob(
-  "./img/slide/*.{jpg,JPG,jpeg,JPEG,png,PNG}",
+  "./img/slide/*.{png,PNG,webp,WEBP}",
   {
     eager: true,
     import: "default",
@@ -42,9 +42,38 @@ const slideImageModules = import.meta.glob(
   },
 );
 
+const imageFormatPriority = {
+  webp: 3,
+  jpg: 2,
+  jpeg: 2,
+  png: 1,
+};
+
+function preferOptimizedImages(entries) {
+  return Array.from(
+    entries
+      .reduce((bestImages, [path, src]) => {
+        const imageKey = path.replace(/\.[^.]+$/, "").toLowerCase();
+        const extension = path.split(".").pop()?.toLowerCase() ?? "";
+        const currentPriority = imageFormatPriority[extension] ?? 0;
+        const existing = bestImages.get(imageKey);
+
+        if (!existing || currentPriority > existing.priority) {
+          bestImages.set(imageKey, { path, src, priority: currentPriority });
+        }
+
+        return bestImages;
+      }, new Map())
+      .values(),
+  ).map(({ path, src }) => [path, src]);
+}
+
 function getProjectImages(folder, altPrefix) {
-  return Object.entries(projectImageModules)
-    .filter(([path]) => path.includes(`/projects/${folder}/`))
+  return preferOptimizedImages(
+    Object.entries(projectImageModules).filter(([path]) =>
+      path.includes(`/projects/${folder}/`),
+    ),
+  )
     .sort(([firstPath], [secondPath]) => firstPath.localeCompare(secondPath))
     .map(([path, src], index) => ({
       path,
@@ -60,7 +89,7 @@ function getProjectCover(images, number) {
   );
 }
 
-const slideImages = Object.entries(slideImageModules)
+const slideImages = preferOptimizedImages(Object.entries(slideImageModules))
   .sort(([firstPath], [secondPath]) => firstPath.localeCompare(secondPath))
   .map(([path, src], index) => ({
     path,
