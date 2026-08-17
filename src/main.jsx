@@ -53,6 +53,13 @@ function getProjectImages(folder, altPrefix) {
     }));
 }
 
+function getProjectCover(images, number) {
+  return (
+    images.find(({ path }) => path.split("/").pop()?.startsWith(`${number}-`))
+      ?.src ?? images[0]?.src
+  );
+}
+
 const slideImages = Object.entries(slideImageModules)
   .sort(([firstPath], [secondPath]) => firstPath.localeCompare(secondPath))
   .map(([path, src], index) => ({
@@ -155,7 +162,7 @@ const agencyCompanyOfficeImages = getProjectImages(
 
 const storageCompanyOfficeImages = getProjectImages(
   "office/d",
-  "Airbnb 辦公室",
+  "套房租賃 辦公室",
 );
 
 const wangYanjiuyuanCabinetImages = getProjectImages(
@@ -341,7 +348,7 @@ const projects = [
         summary:
           "依照一家人的生活節奏安排格局、收納與材質細節，呈現耐看的居家尺度。",
         images: liuTaoyuanImages,
-        cover: liuTaoyuanImages[0]?.src,
+        cover: getProjectCover(liuTaoyuanImages, "005"),
         href: "/works/liu-taoyuan",
       },
       {
@@ -351,19 +358,8 @@ const projects = [
         tags: ["住家", "完工案例"],
         summary: "以清楚動線與舒適材質整理居家尺度，讓日常使用更自然順手。",
         images: zhouImages,
-        cover: zhouImages[0]?.src,
+        cover: getProjectCover(zhouImages, "006"),
         href: "/works/zhou-residence",
-      },
-      {
-        id: "yang-linkou",
-        title: "楊宅/林口",
-        meta: "住家",
-        tags: ["住家", "完工案例"],
-        summary:
-          "依照日常節奏安排格局、收納與材質搭配，呈現舒適耐看的居家表情。",
-        images: yangLinkouImages,
-        cover: yangLinkouImages[0]?.src,
-        href: "/works/yang-linkou",
       },
       {
         id: "qiu-xindian",
@@ -373,7 +369,7 @@ const projects = [
         summary:
           "以居住需求為基礎整理格局、收納與材質方向，打造清楚舒適的生活空間。",
         images: qiuXindianImages,
-        cover: qiuXindianImages[0]?.src,
+        cover: getProjectCover(qiuXindianImages, "007"),
         href: "/works/qiu-xindian",
       },
       {
@@ -384,73 +380,8 @@ const projects = [
         summary:
           "以生活動線、收納配置與材質細節整理日常尺度，讓居家空間更清楚舒適。",
         images: chenChongyang136Images,
-        cover: chenChongyang136Images[0]?.src,
+        cover: getProjectCover(chenChongyang136Images, "007"),
         href: "/works/chen-chongyang-136",
-      },
-      {
-        id: "lin-songhe",
-        title: "林宅/松河街",
-        meta: "住家",
-        tags: ["住家", "完工案例"],
-        summary: "以清楚格局與實用收納整理生活場景，讓居家使用更自然順手。",
-        images: linSongheImages,
-        cover: linSongheImages[0]?.src,
-        href: "/works/lin-songhe",
-      },
-      {
-        id: "zhao-jingmao-2nd",
-        title: "趙宅/經貿二路",
-        meta: "住家",
-        tags: ["住家", "完工案例"],
-        summary:
-          "以生活動線、收納配置與材質細節整理居家尺度，讓空間更清楚舒適。",
-        images: zhaoJingmaoImages,
-        cover: zhaoJingmaoImages[0]?.src,
-        href: "/works/zhao-jingmao-2nd",
-      },
-      {
-        id: "hong-xinju",
-        title: "洪宅/南港心居",
-        meta: "住家",
-        tags: ["住家", "完工案例"],
-        summary:
-          "以清楚動線、收納安排與柔和材質整理居家場景，讓日常尺度更舒適耐看。",
-        images: hongXinjuImages,
-        cover: hongXinjuImages[0]?.src,
-        href: "/works/hong-xinju",
-      },
-      {
-        id: "lu-residence",
-        title: "陸宅/向陽258",
-        meta: "住家",
-        tags: ["住家", "完工案例"],
-        summary:
-          "以簡潔配置與實用收納回應日常生活，讓空間維持清楚、舒適的使用節奏。",
-        images: luXiangyangImages,
-        cover: luXiangyangCover,
-        href: "/works/lu-residence",
-      },
-      {
-        id: "du-qingtian-forest",
-        title: "杜宅/南港擎天森林",
-        meta: "住家",
-        tags: ["住家", "完工案例"],
-        summary:
-          "以清楚收納、柔和材質與生活動線整理居家場景，讓日常使用更舒適順手。",
-        images: duQingtianImages,
-        cover: duQingtianImages[0]?.src,
-        href: "/works/du-qingtian-forest",
-      },
-      {
-        id: "zheng-yanjiuyuan",
-        title: "鄭宅/研究院",
-        meta: "住家",
-        tags: ["住家", "完工案例"],
-        summary:
-          "以清楚格局、收納配置與材質細節整理日常尺度，讓居家空間更舒適耐看。",
-        images: zhengYanjiuyuanImages,
-        cover: zhengYanjiuyuanImages[0]?.src,
-        href: "/works/zheng-yanjiuyuan",
       },
       {
         id: "tseng-fushun",
@@ -464,13 +395,89 @@ const projects = [
         href: "/works/tseng-fushun",
       },
       {
+        id: "lin-songhe",
+        title: "林宅/松河街",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary: "以清楚格局與實用收納整理生活場景，讓居家使用更自然順手。",
+        images: linSongheImages,
+        cover: getProjectCover(linSongheImages, "005"),
+        href: "/works/lin-songhe",
+      },
+      {
+        id: "zhao-jingmao-2nd",
+        title: "趙宅/經貿二路",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以生活動線、收納配置與材質細節整理居家尺度，讓空間更清楚舒適。",
+        images: zhaoJingmaoImages,
+        cover: getProjectCover(zhaoJingmaoImages, "002"),
+        href: "/works/zhao-jingmao-2nd",
+      },
+      {
+        id: "yang-linkou",
+        title: "楊宅/林口",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "依照日常節奏安排格局、收納與材質搭配，呈現舒適耐看的居家表情。",
+        images: yangLinkouImages,
+        cover: getProjectCover(yangLinkouImages, "008"),
+        href: "/works/yang-linkou",
+      },
+      {
+        id: "hong-xinju",
+        title: "洪宅/南港心居",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以清楚動線、收納安排與柔和材質整理居家場景，讓日常尺度更舒適耐看。",
+        images: hongXinjuImages,
+        cover: getProjectCover(hongXinjuImages, "005"),
+        href: "/works/hong-xinju",
+      },
+      {
+        id: "du-qingtian-forest",
+        title: "杜宅/南港擎天森林",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以清楚收納、柔和材質與生活動線整理居家場景，讓日常使用更舒適順手。",
+        images: duQingtianImages,
+        cover: getProjectCover(duQingtianImages, "003"),
+        href: "/works/du-qingtian-forest",
+      },
+      {
+        id: "zheng-yanjiuyuan",
+        title: "鄭宅/研究院",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以清楚格局、收納配置與材質細節整理日常尺度，讓居家空間更舒適耐看。",
+        images: zhengYanjiuyuanImages,
+        cover: getProjectCover(zhengYanjiuyuanImages, "007"),
+        href: "/works/zheng-yanjiuyuan",
+      },
+      {
+        id: "lu-residence",
+        title: "陸宅/向陽258",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以簡潔配置與實用收納回應日常生活，讓空間維持清楚、舒適的使用節奏。",
+        images: luXiangyangImages,
+        cover: luXiangyangCover,
+        href: "/works/lu-residence",
+      },
+      {
         id: "chen-zhonghe",
         title: "陳宅/中和",
         meta: "住家",
         tags: ["住家", "完工案例"],
         summary: "以生活動線與材質細節整理空間表情，讓居家尺度更安定耐看。",
         images: chenZhongheImages,
-        cover: chenZhongheImages[0]?.src,
+        cover: getProjectCover(chenZhongheImages, "003"),
         href: "/works/chen-zhonghe",
       },
       {
@@ -481,7 +488,7 @@ const projects = [
         summary:
           "以生活動線、收納安排與材質細節整合居家需求，讓日常空間更清楚舒適。",
         images: suZiliImages,
-        cover: suZiliImages[0]?.src,
+        cover: getProjectCover(suZiliImages, "010"),
         href: "/works/su-zili",
       },
       {
@@ -492,7 +499,7 @@ const projects = [
         summary:
           "整合收納、材質與光線細節，讓日常空間維持清爽且耐看的使用狀態。",
         images: linJinxiImages,
-        cover: linJinxiImages[0]?.src,
+        cover: getProjectCover(linJinxiImages, "005"),
         href: "/works/lin-jinxi",
       },
     ],
@@ -512,7 +519,7 @@ const projects = [
         summary:
           "以清楚動線、材質配置與工作機能整理辦公場景，建立俐落專業的企業形象。",
         images: techCompanyOfficeImages,
-        cover: techCompanyOfficeImages[0]?.src,
+        cover: getProjectCover(techCompanyOfficeImages, "006"),
         href: "/works/tech-company-office",
       },
       {
@@ -523,7 +530,7 @@ const projects = [
         summary:
           "以開放、明亮的辦公配置整理接待與工作需求，讓品牌形象與日常使用自然銜接。",
         images: travelCompanyOfficeImages,
-        cover: travelCompanyOfficeImages[0]?.src,
+        cover: getProjectCover(travelCompanyOfficeImages, "002"),
         href: "/works/travel-company-office",
       },
       {
@@ -534,18 +541,18 @@ const projects = [
         summary:
           "整合洽談、接待與辦公機能，讓客戶接觸與團隊工作都維持清楚順手的節奏。",
         images: agencyCompanyOfficeImages,
-        cover: agencyCompanyOfficeImages[0]?.src,
+        cover: getProjectCover(agencyCompanyOfficeImages, "003"),
         href: "/works/agency-company-office",
       },
       {
         id: "storage-company-office",
-        title: "Airbnb",
+        title: "套房租賃",
         meta: "辦公室",
         tags: ["辦公室", "接待區", "商業空間"],
         summary:
           "以服務流程與空間辨識度為核心，整理接待、展示與日常管理需要的辦公配置。",
         images: storageCompanyOfficeImages,
-        cover: storageCompanyOfficeImages[0]?.src,
+        cover: getProjectCover(storageCompanyOfficeImages, "004"),
         href: "/works/storage-company-office",
       },
     ],
@@ -590,19 +597,8 @@ const projects = [
     image: chenChongyangImages[0]?.src,
     cases: [
       {
-        id: "3d-rendering",
-        title: "陳宅/重陽57",
-        meta: "空間渲染 / 設計提案",
-        tags: ["3D 渲染", "設計提案", "材質模擬"],
-        summary:
-          "透過 3D 畫面整理空間比例、材質搭配與光線氛圍，讓提案與溝通更直覺。",
-        images: chenChongyangImages,
-        cover: chenChongyangImages[0]?.src,
-        href: "/works/3d-rendering",
-      },
-      {
         id: "liu-guomei",
-        title: "劉宅/國美案",
+        title: "劉宅/新店國美案",
         meta: "空間渲染 / 設計提案",
         tags: ["3D 渲染", "設計提案", "材質模擬"],
         summary:
@@ -612,8 +608,19 @@ const projects = [
         href: "/works/liu-guomei",
       },
       {
+        id: "3d-rendering",
+        title: "陳宅/重陽57案",
+        meta: "空間渲染 / 設計提案",
+        tags: ["3D 渲染", "設計提案", "材質模擬"],
+        summary:
+          "透過 3D 畫面整理空間比例、材質搭配與光線氛圍，讓提案與溝通更直覺。",
+        images: chenChongyangImages,
+        cover: chenChongyangImages[0]?.src,
+        href: "/works/3d-rendering",
+      },
+      {
         id: "liang-residence",
-        title: "梁宅/富宇18",
+        title: "梁宅/富宇18案",
         meta: "空間渲染 / 設計提案",
         tags: ["3D 渲染", "設計提案", "材質模擬"],
         summary:
@@ -623,73 +630,8 @@ const projects = [
         href: "/works/liang-residence",
       },
       {
-        id: "lee-risheng-yueheng",
-        title: "李宅/日升月恆",
-        meta: "空間渲染 / 設計提案",
-        tags: ["3D 渲染", "設計提案", "材質模擬"],
-        summary:
-          "以空間模擬確認格局比例、材質方向與光線層次，讓提案討論更具體。",
-        images: leeRishengImages,
-        cover: leeRishengImages[0]?.src,
-        href: "/works/lee-risheng-yueheng",
-      },
-      {
-        id: "lee-zhongshan-north",
-        title: "李宅/中山北",
-        meta: "空間渲染 / 設計提案",
-        tags: ["3D 渲染", "設計提案", "材質模擬"],
-        summary:
-          "以空間模擬呈現格局安排、材質搭配與光線層次，讓設計方向更容易討論與確認。",
-        images: leeZhongshanImages,
-        cover: leeZhongshanImages[0]?.src,
-        href: "/works/lee-zhongshan-north",
-      },
-      {
-        id: "lee-jiaziyuan",
-        title: "李宅/甲子園",
-        meta: "空間渲染 / 設計提案",
-        tags: ["3D 渲染", "設計提案", "材質模擬"],
-        summary:
-          "以空間模擬整理格局比例、材質搭配與光線層次，讓提案方向更容易確認。",
-        images: leeJiaziyuanImages,
-        cover: leeJiaziyuanImages[0]?.src,
-        href: "/works/lee-jiaziyuan",
-      },
-      {
-        id: "zheng-yanji-render",
-        title: "鄭宅/延吉街",
-        meta: "空間渲染 / 設計提案",
-        tags: ["3D 渲染", "設計提案", "材質模擬"],
-        summary:
-          "以空間模擬整理格局比例、材質搭配與光線氛圍，協助確認設計方向。",
-        images: zhengYanjiRenderImages,
-        cover: zhengYanjiRenderImages[0]?.src,
-        href: "/works/zheng-yanji-render",
-      },
-      {
-        id: "zheng-xiangduo",
-        title: "鄭宅/香朵",
-        meta: "空間渲染 / 設計提案",
-        tags: ["3D 渲染", "設計提案", "材質模擬"],
-        summary:
-          "以空間模擬整理格局配置、材質語感與光線層次，協助確認整體設計方向。",
-        images: zhengXiangduoImages,
-        cover: zhengXiangduoImages[0]?.src,
-        href: "/works/zheng-xiangduo",
-      },
-      {
-        id: "jiang-zhonghe",
-        title: "蔣宅/中和",
-        meta: "空間渲染 / 設計提案",
-        tags: ["3D 渲染", "設計提案", "材質模擬"],
-        summary: "以空間模擬整理格局、材質與光線配置，讓設計方向更容易確認。",
-        images: jiangZhongheImages,
-        cover: jiangZhongheImages[0]?.src,
-        href: "/works/jiang-zhonghe",
-      },
-      {
         id: "lin-garden-villa",
-        title: "林宅/花園別墅",
+        title: "林宅/南港花園別墅案",
         meta: "空間渲染 / 設計提案",
         tags: ["3D 渲染", "設計提案", "材質模擬"],
         summary:
@@ -699,8 +641,62 @@ const projects = [
         href: "/works/lin-garden-villa",
       },
       {
+        id: "zheng-yanji-render",
+        title: "鄭宅/延吉街案",
+        meta: "空間渲染 / 設計提案",
+        tags: ["3D 渲染", "設計提案", "材質模擬"],
+        summary:
+          "以空間模擬整理格局比例、材質搭配與光線氛圍，協助確認設計方向。",
+        images: zhengYanjiRenderImages,
+        cover: zhengYanjiRenderImages[0]?.src,
+        href: "/works/zheng-yanji-render",
+      },
+      {
+        id: "jiang-zhonghe",
+        title: "蔣宅/中和自強案",
+        meta: "空間渲染 / 設計提案",
+        tags: ["3D 渲染", "設計提案", "材質模擬"],
+        summary: "以空間模擬整理格局、材質與光線配置，讓設計方向更容易確認。",
+        images: jiangZhongheImages,
+        cover: jiangZhongheImages[0]?.src,
+        href: "/works/jiang-zhonghe",
+      },
+      {
+        id: "lee-risheng-yueheng",
+        title: "李宅/日升月恆案",
+        meta: "空間渲染 / 設計提案",
+        tags: ["3D 渲染", "設計提案", "材質模擬"],
+        summary:
+          "以空間模擬確認格局比例、材質方向與光線層次，讓提案討論更具體。",
+        images: leeRishengImages,
+        cover: leeRishengImages[0]?.src,
+        href: "/works/lee-risheng-yueheng",
+      },
+      {
+        id: "lee-jiaziyuan",
+        title: "李宅/桃園甲子園案",
+        meta: "空間渲染 / 設計提案",
+        tags: ["3D 渲染", "設計提案", "材質模擬"],
+        summary:
+          "以空間模擬整理格局比例、材質搭配與光線層次，讓提案方向更容易確認。",
+        images: leeJiaziyuanImages,
+        cover: leeJiaziyuanImages[0]?.src,
+        href: "/works/lee-jiaziyuan",
+      },
+      {
+        id: "lee-zhongshan-north",
+        title: "李宅/中山北五案",
+        meta: "空間渲染 / 設計提案",
+        tags: ["3D 渲染", "設計提案", "材質模擬"],
+        summary:
+          "以空間模擬呈現格局安排、材質搭配與光線層次，讓設計方向更容易討論與確認。",
+        images: leeZhongshanImages,
+        cover: leeZhongshanImages[0]?.src,
+        href: "/works/lee-zhongshan-north",
+      },
+      {
         id: "yang-sanchong",
-        title: "楊宅/三重",
+        title: "楊宅/三重案",
         meta: "空間渲染 / 設計提案",
         tags: ["3D 渲染", "設計提案", "材質模擬"],
         summary:
@@ -708,6 +704,17 @@ const projects = [
         images: yangSanchongImages,
         cover: yangSanchongImages[0]?.src,
         href: "/works/yang-sanchong",
+      },
+      {
+        id: "zheng-xiangduo",
+        title: "鄭宅/南港香朵案",
+        meta: "空間渲染 / 設計提案",
+        tags: ["3D 渲染", "設計提案", "材質模擬"],
+        summary:
+          "以空間模擬整理格局配置、材質語感與光線層次，協助確認整體設計方向。",
+        images: zhengXiangduoImages,
+        cover: zhengXiangduoImages[0]?.src,
+        href: "/works/zheng-xiangduo",
       },
     ],
   },
