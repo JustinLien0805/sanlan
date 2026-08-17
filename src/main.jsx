@@ -177,21 +177,39 @@ const chenChongyang136Images = getProjectImages(
   "陳宅/重陽136 住家",
 );
 
-const techCompanyOfficeImages = getProjectImages("office/a", "科技公司 辦公室");
+const techCompanyOfficeImages = getProjectImages(
+  "office/tech-company",
+  "科技公司 商業空間",
+);
 
 const travelCompanyOfficeImages = getProjectImages(
-  "office/b",
-  "旅遊公司 辦公室",
+  "office/travel-company",
+  "旅遊公司 商業空間",
 );
 
 const agencyCompanyOfficeImages = getProjectImages(
-  "office/c",
-  "仲介公司 辦公室",
+  "office/real-estate-agency",
+  "仲介公司 商業空間",
 );
 
 const storageCompanyOfficeImages = getProjectImages(
-  "office/d",
-  "套房租賃 辦公室",
+  "office/suite-rental",
+  "套房租賃 商業空間",
+);
+
+const childcareCommercialImages = getProjectImages(
+  "office/childcare",
+  "產後護理之家 商業空間",
+);
+
+const coffeeCommercialImages = getProjectImages(
+  "office/coffee",
+  "咖啡館 商業空間",
+);
+
+const organicRestaurantCommercialImages = getProjectImages(
+  "office/organic-restaurant",
+  "有機食館 商業空間",
 );
 
 const wangYanjiuyuanCabinetImages = getProjectImages(
@@ -535,16 +553,16 @@ const projects = [
   },
   {
     id: "office",
-    title: "辦公室",
-    type: "辦公空間設計",
+    title: "商業空間",
+    type: "商業空間設計",
     style: "接待區、會議室、工作區與品牌形象空間配置。",
     image: techCompanyOfficeImages[0]?.src,
     cases: [
       {
         id: "tech-company-office",
         title: "科技公司",
-        meta: "辦公室",
-        tags: ["辦公室", "接待區", "工作區"],
+        meta: "商業空間",
+        tags: ["商業空間", "接待區", "工作區"],
         summary:
           "以清楚動線、材質配置與工作機能整理辦公場景，建立俐落專業的企業形象。",
         images: techCompanyOfficeImages,
@@ -554,8 +572,8 @@ const projects = [
       {
         id: "travel-company-office",
         title: "旅遊公司",
-        meta: "辦公室",
-        tags: ["辦公室", "接待區", "會議空間"],
+        meta: "商業空間",
+        tags: ["商業空間", "接待區", "會議空間"],
         summary:
           "以開放、明亮的辦公配置整理接待與工作需求，讓品牌形象與日常使用自然銜接。",
         images: travelCompanyOfficeImages,
@@ -565,8 +583,8 @@ const projects = [
       {
         id: "agency-company-office",
         title: "仲介公司",
-        meta: "辦公室",
-        tags: ["辦公室", "洽談區", "品牌形象"],
+        meta: "商業空間",
+        tags: ["商業空間", "洽談區", "品牌形象"],
         summary:
           "整合洽談、接待與辦公機能，讓客戶接觸與團隊工作都維持清楚順手的節奏。",
         images: agencyCompanyOfficeImages,
@@ -576,13 +594,46 @@ const projects = [
       {
         id: "storage-company-office",
         title: "套房租賃",
-        meta: "辦公室",
-        tags: ["辦公室", "接待區", "商業空間"],
+        meta: "商業空間",
+        tags: ["商業空間", "接待區", "服務空間"],
         summary:
           "以服務流程與空間辨識度為核心，整理接待、展示與日常管理需要的辦公配置。",
         images: storageCompanyOfficeImages,
         cover: getProjectCover(storageCompanyOfficeImages, "004"),
         href: "/works/storage-company-office",
+      },
+      {
+        id: "postpartum-care-center",
+        title: "產後護理之家",
+        meta: "商業空間",
+        tags: ["商業空間", "公共區", "休憩房型"],
+        summary:
+          "以公共接待、休憩房型與使用動線整理空間，呈現安定舒適的照護場域。",
+        images: childcareCommercialImages,
+        cover: childcareCommercialImages[0]?.src,
+        href: "/works/postpartum-care-center",
+      },
+      {
+        id: "coffee-shop",
+        title: "咖啡館",
+        meta: "商業空間",
+        tags: ["商業空間", "用餐區", "品牌氛圍"],
+        summary:
+          "整理用餐區、吧台與店內動線，讓商業機能與品牌氣氛自然呈現。",
+        images: coffeeCommercialImages,
+        cover: coffeeCommercialImages[0]?.src,
+        href: "/works/coffee-shop",
+      },
+      {
+        id: "organic-restaurant",
+        title: "有機食館",
+        meta: "商業空間",
+        tags: ["商業空間", "用餐區", "展示植栽"],
+        summary:
+          "以明亮用餐區、操作檯面與展示植栽整理品牌場域，呈現自然清爽的商業空間。",
+        images: organicRestaurantCommercialImages,
+        cover: organicRestaurantCommercialImages[0]?.src,
+        href: "/works/organic-restaurant",
       },
     ],
   },
@@ -751,7 +802,7 @@ const projects = [
 
 const services = [
   ["住宅設計", "從格局、收納到材質細節，規劃貼近日常節奏的家。"],
-  ["辦公室設計", "把品牌氣質轉化為接待、會議與日常工作體驗。"],
+  ["商業空間設計", "把品牌氣質轉化為接待、會議與日常工作體驗。"],
   ["老屋翻新", "整合基礎工程、機能更新與風格再塑。"],
   ["軟裝配置", "以家具、燈飾、窗簾與飾品完成空間表情。"],
 ];
@@ -766,7 +817,7 @@ const pricingPlans = [
   {
     title: "全屋裝修設計",
     price: "依坪數與需求報價",
-    note: "適合住家、辦公室或完整空間規劃。",
+    note: "適合住家、商業空間或完整空間規劃。",
     items: ["平面配置與動線規劃", "風格與材質提案", "施工圖與工程預算整合"],
   },
   {
@@ -784,7 +835,7 @@ const fullHouseProcess = [
     points: [
       "了解業主之各項需求。",
       "住宅類：家庭人口、起居習慣、特殊偏好、工程預算、設備及傢俱使用狀況、進度安排等。",
-      "辦公室：公司成員、組織概況、企業形象、部門流程、事務機器使用狀況、未來 3 至 5 年成長幅度預估、工程預算、進度安排等。",
+      "商業空間：公司成員、組織概況、企業形象、部門流程、事務機器使用狀況、未來 3 至 5 年成長幅度預估、工程預算、進度安排等。",
     ],
   },
   {
@@ -900,7 +951,7 @@ function getProjectSeoIntro(project) {
   const introByProject = {
     home: "整理住家室內設計案例，包含格局調整、收納配置、材質搭配與生活動線規劃，提供南港、台北、松山、內湖屋主作為裝修前的參考。",
     office:
-      "辦公室空間規劃重視接待動線、會議機能、工作區配置與品牌形象，協助台北與南港周邊企業整理清楚耐看的工作場景。",
+      "商業空間規劃重視接待動線、會議機能、工作區配置與品牌形象，協助台北與南港周邊企業整理清楚耐看的工作場景。",
     cabinet:
       "系統櫃設計涵蓋玄關、臥室、書房、更衣室與展示收納，依照台北住家日常使用習慣安排櫃體尺度與收納細節。",
     render:
@@ -926,7 +977,7 @@ function getPageSeo(path, selectedWork) {
     return {
       title: `作品案例｜南港室內設計、台北住家設計｜${businessInfo.name}`,
       description:
-        "山嵐室內設計作品案例，包含住家室內設計、系統櫃、空間設計模擬與辦公室規劃，服務南港、台北、松山、內湖與周邊地區。",
+        "山嵐室內設計作品案例，包含住家室內設計、系統櫃、空間設計模擬與商業空間規劃，服務南港、台北、松山、內湖與周邊地區。",
     };
   }
 
@@ -1264,7 +1315,7 @@ function HomePage() {
             <h2 className="section-title">精選空間作品</h2>
           </div>
           <p className="max-w-xl leading-7 text-stonework">
-            作品依住家、辦公室、系統櫃與空間設計模擬分類呈現，整理實際案例照片、空間類型與設計說明，提供南港、台北、松山與內湖室內設計參考。
+            作品依住家、商業空間、系統櫃與空間設計模擬分類呈現，整理實際案例照片、空間類型與設計說明，提供南港、台北、松山與內湖室內設計參考。
           </p>
         </div>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
@@ -1483,7 +1534,7 @@ function WorksPage() {
             作品案例
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-stonework">
-            山嵐室內設計作品案例依住家、辦公室、系統櫃與空間設計模擬分類整理，提供南港、台北、松山、內湖室內設計與裝修規劃參考。
+            山嵐室內設計作品案例依住家、商業空間、系統櫃與空間設計模擬分類整理，提供南港、台北、松山、內湖室內設計與裝修規劃參考。
           </p>
           <div className="mt-10 flex flex-wrap gap-3">
             {projects.map((project) => (
