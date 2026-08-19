@@ -22,7 +22,7 @@ while IFS= read -r image_path; do
 
   cwebp -quiet -q "$QUALITY" "$image_path" -o "$webp_path"
   converted=$((converted + 1))
-done < <(find "$ROOT_DIR" -type f \( -iname '*.jpg' -o -iname '*.jpeg' \) | sort)
+done < <(find "$ROOT_DIR" -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' \) | sort)
 
 echo "Converted: $converted"
 echo "Skipped: $skipped"

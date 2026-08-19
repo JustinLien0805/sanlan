@@ -20,12 +20,12 @@ import {
   Sparkles,
   X,
 } from "lucide-react";
-import logoImage from "./img/brand/sanlan-design-logo-black.png";
-import titleImage from "./img/brand/title.png";
+import logoImage from "./img/brand/sanlan-design-logo-black.webp";
+import titleImage from "./img/brand/title.webp";
 import "./styles.css";
 
 const projectImageModules = import.meta.glob(
-  "./img/projects/**/*.{png,PNG,webp,WEBP}",
+  "./img/projects/**/*.{webp,WEBP}",
   {
     eager: true,
     import: "default",
@@ -34,7 +34,7 @@ const projectImageModules = import.meta.glob(
 );
 
 const slideImageModules = import.meta.glob(
-  "./img/slide/*.{png,PNG,webp,WEBP}",
+  "./img/slide/*.{webp,WEBP}",
   {
     eager: true,
     import: "default",
@@ -109,6 +109,11 @@ const luXiangyangImages = getProjectImages(
 );
 const luXiangyangCover = luXiangyangImages[0]?.src;
 
+const linXiangyang258Images = getProjectImages(
+  "residential/lin-xiangyang-258",
+  "林宅/向陽258 住家",
+);
+
 const zhouImages = getProjectImages("residential/zhou", "周宅 住家");
 
 const linYanjiImages = getProjectImages("residential/lin", "林宅/延吉街 住家");
@@ -177,6 +182,36 @@ const chenChongyang136Images = getProjectImages(
   "陳宅/重陽136 住家",
 );
 
+const chenXiangyang162Images = getProjectImages(
+  "residential/chen-xiangyang-162",
+  "陳宅/向陽162 住家",
+);
+
+const jiangZhongheResidenceImages = getProjectImages(
+  "residential/jiang-zhonghe-residence",
+  "蔣宅/中和 住家",
+);
+
+const zhangAitImages = getProjectImages(
+  "residential/zhang-ait",
+  "張宅 AIT 住家",
+);
+
+const guoZhishanImages = getProjectImages(
+  "residential/guo-zhishan",
+  "郭宅/至善路 住家",
+);
+
+const xuChongyang136Images = getProjectImages(
+  "residential/xu-chongyang-136",
+  "徐宅/重陽136 住家",
+);
+
+const zhengFutureLightImages = getProjectImages(
+  "residential/zheng-future-light",
+  "鄭宅/未來之光 住家",
+);
+
 const techCompanyOfficeImages = getProjectImages(
   "office/tech-company",
   "科技公司 商業空間",
@@ -212,12 +247,22 @@ const organicRestaurantCommercialImages = getProjectImages(
   "有機食館 商業空間",
 );
 
+const kindergartenCommercialImages = getProjectImages(
+  "office/kindergarten",
+  "幼兒園 商業空間",
+);
+
 const wangYanjiuyuanCabinetImages = getProjectImages(
   "cabinet/wang",
   "王宅/研究院 系統櫃",
 );
 
 const closetCabinetImages = getProjectImages("cabinet/closet", "更衣室 系統櫃");
+
+const chenHepingEastCabinetImages = getProjectImages(
+  "cabinet/chen-heping-east",
+  "陳宅/和平東路 系統櫃",
+);
 
 const chenChongyangImages = getProjectImages(
   "render/chen-chongyang-57",
@@ -518,6 +563,83 @@ const projects = [
         href: "/works/lu-residence",
       },
       {
+        id: "lin-xiangyang-258",
+        title: "林宅/向陽258",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以客餐廳、臥室與衛浴機能整理日常尺度，呈現精緻明亮的居家空間。",
+        images: linXiangyang258Images,
+        cover: linXiangyang258Images[0]?.src,
+        href: "/works/lin-xiangyang-258",
+      },
+      {
+        id: "chen-xiangyang-162",
+        title: "陳宅/向陽162",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以客餐廳與臥室尺度整理生活動線，呈現溫潤安定的居家空間。",
+        images: chenXiangyang162Images,
+        cover: chenXiangyang162Images[0]?.src,
+        href: "/works/chen-xiangyang-162",
+      },
+      {
+        id: "jiang-zhonghe-residence",
+        title: "蔣宅/中和",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以客廳、餐廚與臥室動線整合生活需求，呈現俐落安定的居家尺度。",
+        images: jiangZhongheResidenceImages,
+        cover: jiangZhongheResidenceImages[0]?.src,
+        href: "/works/jiang-zhonghe-residence",
+      },
+      {
+        id: "zhang-ait",
+        title: "張宅 AIT",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以客廳、臥室與書房機能整理居家尺度，呈現沉穩細緻的生活空間。",
+        images: zhangAitImages,
+        cover: zhangAitImages[0]?.src,
+        href: "/works/zhang-ait",
+      },
+      {
+        id: "guo-zhishan",
+        title: "郭宅/至善路",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以客餐廚與臥室機能整合日常動線，呈現明亮俐落的居家空間。",
+        images: guoZhishanImages,
+        cover: guoZhishanImages[0]?.src,
+        href: "/works/guo-zhishan",
+      },
+      {
+        id: "xu-chongyang-136",
+        title: "徐宅/重陽136",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以客餐廳、臥室與休憩區整理生活尺度，呈現溫暖舒適的居家空間。",
+        images: xuChongyang136Images,
+        cover: xuChongyang136Images[0]?.src,
+        href: "/works/xu-chongyang-136",
+      },
+      {
+        id: "zheng-future-light",
+        title: "鄭宅/未來之光",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以開放客餐廚、臥室與衛浴機能整理生活尺度，呈現清爽明亮的居家空間。",
+        images: zhengFutureLightImages,
+        cover: zhengFutureLightImages[0]?.src,
+        href: "/works/zheng-future-light",
+      },
+      {
         id: "chen-zhonghe",
         title: "陳宅/中和",
         meta: "住家",
@@ -635,6 +757,17 @@ const projects = [
         cover: organicRestaurantCommercialImages[0]?.src,
         href: "/works/organic-restaurant",
       },
+      {
+        id: "kindergarten",
+        title: "幼兒園",
+        meta: "商業空間",
+        tags: ["商業空間", "教室", "活動空間"],
+        summary:
+          "以教室、活動區與接待動線整理兒童學習場域，呈現明亮安全的商業空間。",
+        images: kindergartenCommercialImages,
+        cover: kindergartenCommercialImages[0]?.src,
+        href: "/works/kindergarten",
+      },
     ],
   },
   {
@@ -665,6 +798,17 @@ const projects = [
         images: closetCabinetImages,
         cover: closetCabinetImages[0]?.src,
         href: "/works/closet-cabinet",
+      },
+      {
+        id: "chen-heping-east-cabinet",
+        title: "陳宅/和平東路",
+        meta: "系統櫃 / 住家",
+        tags: ["系統櫃", "收納規劃", "住宅機能"],
+        summary:
+          "整合客廳、餐廚與臥室櫃體配置，讓收納機能與居家表情自然銜接。",
+        images: chenHepingEastCabinetImages,
+        cover: chenHepingEastCabinetImages[0]?.src,
+        href: "/works/chen-heping-east-cabinet",
       },
     ],
   },
