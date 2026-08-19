@@ -33,14 +33,11 @@ const projectImageModules = import.meta.glob(
   },
 );
 
-const slideImageModules = import.meta.glob(
-  "./img/slide/*.{webp,WEBP}",
-  {
-    eager: true,
-    import: "default",
-    query: "?url",
-  },
-);
+const slideImageModules = import.meta.glob("./img/slide/*.{webp,WEBP}", {
+  eager: true,
+  import: "default",
+  query: "?url",
+});
 
 const imageFormatPriority = {
   webp: 3,
@@ -112,6 +109,11 @@ const luXiangyangCover = luXiangyangImages[0]?.src;
 const linXiangyang258Images = getProjectImages(
   "residential/lin-xiangyang-258",
   "林宅/向陽258 住家",
+);
+
+const wuZhuangjingRoadImages = getProjectImages(
+  "residential/wu-zhuangjing-road",
+  "巫宅/莊敬路 住家",
 );
 
 const zhouImages = getProjectImages("residential/zhou", "周宅 住家");
@@ -574,14 +576,24 @@ const projects = [
         href: "/works/lin-xiangyang-258",
       },
       {
+        id: "wu-zhuangjing-road",
+        title: "巫宅/莊敬路",
+        meta: "住家",
+        tags: ["住家", "完工案例"],
+        summary:
+          "以客餐廳、廚房、臥室與衛浴機能整合日常生活，呈現沉穩精緻的居家空間。",
+        images: wuZhuangjingRoadImages,
+        cover: wuZhuangjingRoadImages[0]?.src,
+        href: "/works/wu-zhuangjing-road",
+      },
+      {
         id: "chen-xiangyang-162",
         title: "陳宅/向陽162",
         meta: "住家",
         tags: ["住家", "完工案例"],
-        summary:
-          "以客餐廳與臥室尺度整理生活動線，呈現溫潤安定的居家空間。",
+        summary: "以客餐廳與臥室尺度整理生活動線，呈現溫潤安定的居家空間。",
         images: chenXiangyang162Images,
-        cover: chenXiangyang162Images[0]?.src,
+        cover: getProjectCover(chenXiangyang162Images, "004"),
         href: "/works/chen-xiangyang-162",
       },
       {
@@ -589,8 +601,7 @@ const projects = [
         title: "蔣宅/中和",
         meta: "住家",
         tags: ["住家", "完工案例"],
-        summary:
-          "以客廳、餐廚與臥室動線整合生活需求，呈現俐落安定的居家尺度。",
+        summary: "以客廳、餐廚與臥室動線整合生活需求，呈現俐落安定的居家尺度。",
         images: jiangZhongheResidenceImages,
         cover: jiangZhongheResidenceImages[0]?.src,
         href: "/works/jiang-zhonghe-residence",
@@ -600,8 +611,7 @@ const projects = [
         title: "張宅 AIT",
         meta: "住家",
         tags: ["住家", "完工案例"],
-        summary:
-          "以客廳、臥室與書房機能整理居家尺度，呈現沉穩細緻的生活空間。",
+        summary: "以客廳、臥室與書房機能整理居家尺度，呈現沉穩細緻的生活空間。",
         images: zhangAitImages,
         cover: zhangAitImages[0]?.src,
         href: "/works/zhang-ait",
@@ -611,10 +621,9 @@ const projects = [
         title: "郭宅/至善路",
         meta: "住家",
         tags: ["住家", "完工案例"],
-        summary:
-          "以客餐廚與臥室機能整合日常動線，呈現明亮俐落的居家空間。",
+        summary: "以客餐廚與臥室機能整合日常動線，呈現明亮俐落的居家空間。",
         images: guoZhishanImages,
-        cover: guoZhishanImages[0]?.src,
+        cover: getProjectCover(guoZhishanImages, "002"),
         href: "/works/guo-zhishan",
       },
       {
@@ -622,8 +631,7 @@ const projects = [
         title: "徐宅/重陽136",
         meta: "住家",
         tags: ["住家", "完工案例"],
-        summary:
-          "以客餐廳、臥室與休憩區整理生活尺度，呈現溫暖舒適的居家空間。",
+        summary: "以客餐廳、臥室與休憩區整理生活尺度，呈現溫暖舒適的居家空間。",
         images: xuChongyang136Images,
         cover: xuChongyang136Images[0]?.src,
         href: "/works/xu-chongyang-136",
@@ -740,8 +748,7 @@ const projects = [
         title: "咖啡館",
         meta: "商業空間",
         tags: ["商業空間", "用餐區", "品牌氛圍"],
-        summary:
-          "整理用餐區、吧台與店內動線，讓商業機能與品牌氣氛自然呈現。",
+        summary: "整理用餐區、吧台與店內動線，讓商業機能與品牌氣氛自然呈現。",
         images: coffeeCommercialImages,
         cover: coffeeCommercialImages[0]?.src,
         href: "/works/coffee-shop",
@@ -765,7 +772,7 @@ const projects = [
         summary:
           "以教室、活動區與接待動線整理兒童學習場域，呈現明亮安全的商業空間。",
         images: kindergartenCommercialImages,
-        cover: kindergartenCommercialImages[0]?.src,
+        cover: getProjectCover(kindergartenCommercialImages, "009"),
         href: "/works/kindergarten",
       },
     ],
@@ -804,8 +811,7 @@ const projects = [
         title: "陳宅/和平東路",
         meta: "系統櫃 / 住家",
         tags: ["系統櫃", "收納規劃", "住宅機能"],
-        summary:
-          "整合客廳、餐廚與臥室櫃體配置，讓收納機能與居家表情自然銜接。",
+        summary: "整合客廳、餐廚與臥室櫃體配置，讓收納機能與居家表情自然銜接。",
         images: chenHepingEastCabinetImages,
         cover: chenHepingEastCabinetImages[0]?.src,
         href: "/works/chen-heping-east-cabinet",
@@ -1458,9 +1464,6 @@ function HomePage() {
             <p className="section-label">Portfolio</p>
             <h2 className="section-title">精選空間作品</h2>
           </div>
-          <p className="max-w-xl leading-7 text-stonework">
-            作品依住家、商業空間、系統櫃與空間設計模擬分類呈現，整理實際案例照片、空間類型與設計說明，提供南港、台北、松山與內湖室內設計參考。
-          </p>
         </div>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {projects.map((project) => (
@@ -1744,9 +1747,6 @@ function WorksPage() {
                         <h3 className="mt-3 text-xl font-semibold">
                           {work.title}
                         </h3>
-                        <p className="mt-3 leading-7 text-stonework">
-                          {work.summary}
-                        </p>
                         <div className="mt-5 flex flex-wrap gap-2">
                           {work.tags.map((tag) => (
                             <span
