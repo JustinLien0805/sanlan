@@ -296,6 +296,11 @@ const leeJiaziyuanImages = getProjectImages(
   "李宅/甲子園 空間設計模擬",
 );
 
+const leeNeihuImages = getProjectImages(
+  "render/lee-neihu",
+  "李宅/內湖 空間設計模擬",
+);
+
 const zhengYanjiRenderImages = getProjectImages(
   "render/chung",
   "鄭宅/延吉街 空間設計模擬",
@@ -923,6 +928,17 @@ const projects = [
         images: leeZhongshanImages,
         cover: leeZhongshanImages[0]?.src,
         href: "/works/lee-zhongshan-north",
+      },
+      {
+        id: "lee-neihu",
+        title: "李宅/內湖案",
+        meta: "空間渲染 / 設計提案",
+        tags: ["3D 渲染", "設計提案", "材質模擬"],
+        summary:
+          "以空間模擬呈現客餐廚、書房、臥室與更衣收納配置，協助確認整體設計方向。",
+        images: leeNeihuImages,
+        cover: leeNeihuImages[0]?.src,
+        href: "/works/lee-neihu",
       },
       {
         id: "yang-sanchong",
