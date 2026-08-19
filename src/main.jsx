@@ -613,7 +613,7 @@ const projects = [
       },
       {
         id: "zhang-ait",
-        title: "張宅 AIT",
+        title: "張宅/AIT",
         meta: "住家",
         tags: ["住家", "完工案例"],
         summary: "以客廳、臥室與書房機能整理居家尺度，呈現沉穩細緻的生活空間。",
