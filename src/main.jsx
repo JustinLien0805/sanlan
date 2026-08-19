@@ -416,7 +416,7 @@ const projects = [
         summary:
           "以實際生活需求整理動線、收納與材質細節，呈現清楚耐看的居家尺度。",
         images: zhengZiqiangImages,
-        cover: zhengZiqiangImages[0]?.src,
+        cover: getProjectCover(zhengZiqiangImages, "001"),
         href: "/works/zheng-residence",
       },
       {
@@ -839,7 +839,7 @@ const projects = [
         summary:
           "以空間模擬呈現整體比例、材質方向與光線氛圍，讓設計討論更清楚。",
         images: liuGuomeiImages,
-        cover: liuGuomeiImages[0]?.src,
+        cover: getProjectCover(liuGuomeiImages, "001"),
         href: "/works/liu-guomei",
       },
       {
@@ -850,7 +850,7 @@ const projects = [
         summary:
           "透過 3D 畫面整理空間比例、材質搭配與光線氛圍，讓提案與溝通更直覺。",
         images: chenChongyangImages,
-        cover: chenChongyangImages[0]?.src,
+        cover: getProjectCover(chenChongyangImages, "001"),
         href: "/works/3d-rendering",
       },
       {
@@ -1103,6 +1103,9 @@ const heroImages =
 const criticalImageSources = [
   ...heroImages.slice(0, 3).map((image) => image.src),
   ...projects.map((project) => project.image).filter(Boolean),
+  getProjectCover(zhengZiqiangImages, "001"),
+  ...liuGuomeiImages.slice(0, 3).map((image) => image.src),
+  getProjectCover(chenChongyangImages, "001"),
 ];
 
 function getProjectImageAlt(project) {
@@ -1244,10 +1247,12 @@ function ProgressiveImage({
   loading,
   fetchPriority,
 }) {
+  const imageRef = React.useRef(null);
   const [isLoaded, setIsLoaded] = React.useState(false);
 
   React.useEffect(() => {
-    setIsLoaded(false);
+    const image = imageRef.current;
+    setIsLoaded(Boolean(image?.complete && image?.naturalWidth));
   }, [src]);
 
   return (
@@ -1255,12 +1260,14 @@ function ProgressiveImage({
       className={`progressive-image ${isLoaded ? "is-loaded" : ""} ${className}`}
     >
       <img
+        ref={imageRef}
         src={src}
         alt={alt}
         loading={loading}
-        fetchpriority={fetchPriority}
+        fetchPriority={fetchPriority}
         draggable={false}
         onLoad={() => setIsLoaded(true)}
+        onError={() => setIsLoaded(true)}
         className={`progressive-image__img ${imageClassName}`}
       />
     </span>
